@@ -42,12 +42,12 @@ export default function Footer() {
 
           {/* Direct Email */}
           <div className="flex flex-col items-center gap-6 group">
-            <a href="mailto:hello@handsonpixel.ro" className="flex flex-col items-center gap-4 text-muted hover:text-accent transition-all duration-300">
+            <a href="mailto:salut@handsonpixel.ro" className="flex flex-col items-center gap-4 text-muted hover:text-accent transition-all duration-300">
               <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-accent/30 transition-colors">
                 <Mail className="w-6 h-6" />
               </div>
               <span className="text-lg md:text-xl font-medium border-b border-transparent group-hover:border-accent/30 pb-1">
-                hello@handsonpixel.ro
+                salut@handsonpixel.ro
               </span>
             </a>
           </div>
