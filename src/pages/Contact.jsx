@@ -10,6 +10,7 @@ import {
   Palette,
   Send
 } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</span>;
 
@@ -81,12 +82,30 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('submitting');
-    setTimeout(() => {
+    
+    try {
+      const { error } = await supabase
+        .from('leads')
+        .insert([{
+          name: formData.name,
+          email: formData.email,
+          brand: formData.brand,
+          website: formData.website,
+          service: formData.services.join(', '),
+          message: formData.challenge,
+          timeline: formData.timeline
+        }]);
+
+      if (error) throw error;
       setStatus('success');
-    }, 2000);
+    } catch (err) {
+      console.error('Error submitting form:', err);
+      alert('A apărut o eroare la trimiterea mesajului. Te rugăm să încerci din nou.');
+      setStatus('idle');
+    }
   };
 
   // --- STEP RENDERING ---
