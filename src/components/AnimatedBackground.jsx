@@ -1,6 +1,16 @@
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 export default function AnimatedBackground() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   return (
     <div className="fixed inset-0 z-0 overflow-hidden bg-background pointer-events-none">
 
@@ -13,7 +23,7 @@ export default function AnimatedBackground() {
           top: '-10%',
           left: '-20%',
         }}
-        animate={{
+        animate={isMobile ? {} : {
           x: ['0%', '15%', '-5%', '0%'],
           y: ['0%', '20%', '-10%', '0%'],
           scale: [1, 1.15, 0.9, 1],
@@ -30,7 +40,7 @@ export default function AnimatedBackground() {
           bottom: '-20%',
           right: '-10%',
         }}
-        animate={{
+        animate={isMobile ? {} : {
           x: ['0%', '-20%', '10%', '0%'],
           y: ['0%', '-15%', '20%', '0%'],
           scale: [1, 1.25, 0.85, 1],
@@ -47,7 +57,7 @@ export default function AnimatedBackground() {
           top: '30%',
           left: '10%',
         }}
-        animate={{
+        animate={isMobile ? { opacity: 0.08 } : {
           opacity: [0.05, 0.13, 0.05],
           scale: [0.9, 1.1, 0.9],
         }}
@@ -63,7 +73,7 @@ export default function AnimatedBackground() {
           top: '55%',
           left: '-10%',
         }}
-        animate={{
+        animate={isMobile ? {} : {
           x: ['0%', '10%', '-8%', '0%'],
           y: ['0%', '-12%', '8%', '0%'],
           scale: [1, 1.1, 0.95, 1],
@@ -80,7 +90,7 @@ export default function AnimatedBackground() {
           top: '75%',
           right: '-15%',
         }}
-        animate={{
+        animate={isMobile ? {} : {
           x: ['0%', '-15%', '5%', '0%'],
           y: ['0%', '10%', '-8%', '0%'],
           scale: [1, 1.2, 0.9, 1],

@@ -164,9 +164,9 @@ function MobileServices() {
                 <div
                   className="relative h-full w-full overflow-hidden"
                   style={{
-                    background: 'rgba(15, 15, 20, 0.9)',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
+                    background: 'rgba(15, 15, 20, 0.98)',
+                    backdropFilter: window.innerWidth < 768 ? 'none' : 'blur(20px)',
+                    WebkitBackdropFilter: window.innerWidth < 768 ? 'none' : 'blur(20px)',
                     border: '1px solid rgba(255, 255, 255, 0.12)',
                     borderRadius: '2.5rem',
                     padding: '2.25rem',

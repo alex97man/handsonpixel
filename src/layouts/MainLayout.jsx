@@ -12,6 +12,9 @@ export default function MainLayout() {
   const lenisRef = useRef(null);
 
   useEffect(() => {
+    // Dezactivăm Lenis pe mobile pentru performanță nativă
+    if (window.innerWidth < 768) return;
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -46,19 +49,20 @@ export default function MainLayout() {
       */}
       <AnimatedBackground />
 
-      {/* Film grain — fixed, true global overlay */}
+      {/* Film grain — fixed, true global overlay. Ascuns pe mobile pt perf. */}
       <div
         aria-hidden
+        className="hidden md:block" // NU afișăm pe mobile
         style={{
           position: 'fixed',
           inset: 0,
           zIndex: 6,
-          opacity: 0.06,
+          opacity: 0.05,
           pointerEvents: 'none',
           backgroundImage: GRAIN_URL,
           backgroundRepeat: 'repeat',
           backgroundSize: '150px 150px',
-          mixBlendMode: 'lighten',
+          mixBlendMode: 'screen',
         }}
       />
 
