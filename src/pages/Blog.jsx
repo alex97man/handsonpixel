@@ -59,7 +59,7 @@ export default function Blog() {
         >
           <motion.p variants={fadeUpVariants} className="text-accent uppercase font-bold tracking-[0.3em] text-xs md:text-sm mb-6 flex items-center gap-4">
             <span className="w-12 h-[1px] bg-accent/50 block" />
-            Jurnal
+            Blog
           </motion.p>
 
           <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-tighter leading-[0.85] mb-8">
