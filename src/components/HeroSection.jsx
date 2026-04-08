@@ -15,13 +15,22 @@ const WORDS = ['PIXEL', 'DESIGN', 'IMPACT', 'VÂNZARE'];
 /* ─── Hero ────────────────────────────────────────────────────────── */
 export default function HeroSection() {
   const [wordIndex, setWordIndex] = useState(0);
+  const [blurAmount, setBlurAmount] = useState('20px');
 
   useEffect(() => {
+    const checkMobile = () => {
+      setBlurAmount(window.innerWidth < 768 ? '4px' : '20px');
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
     const id = setInterval(
       () => setWordIndex(p => (p + 1) % WORDS.length),
       2200
     );
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
 
@@ -104,9 +113,9 @@ export default function HeroSection() {
             <AnimatePresence mode="popLayout">
               <motion.h1
                 key={wordIndex}
-                initial={{ opacity: 0, scale: 0.8, filter: 'blur(20px)' }}
+                initial={{ opacity: 0, scale: 0.8, filter: `blur(${blurAmount})` }}
                 animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, scale: 1.1, filter: 'blur(20px)', position: 'absolute' }}
+                exit={{ opacity: 0, scale: 1.1, filter: `blur(${blurAmount})`, position: 'absolute' }}
                 transition={{
                   duration: 0.9,
                   ease: [0.16, 1, 0.3, 1],

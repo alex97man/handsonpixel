@@ -45,15 +45,22 @@ function MobileServices() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const el = sectionRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const sectionTop = window.scrollY + rect.top;
-      const sectionHeight = el.offsetHeight - window.innerHeight;
-      const scrolled = window.scrollY - sectionTop;
-      if (sectionHeight > 0) {
-        setProgress(Math.min(1, Math.max(0, scrolled / sectionHeight)));
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const el = sectionRef.current;
+          if (!el) return;
+          const rect = el.getBoundingClientRect();
+          const sectionTop = window.scrollY + rect.top;
+          const sectionHeight = el.offsetHeight - window.innerHeight;
+          const scrolled = window.scrollY - sectionTop;
+          if (sectionHeight > 0) {
+            setProgress(Math.min(1, Math.max(0, scrolled / sectionHeight)));
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -157,13 +164,13 @@ function MobileServices() {
                 <div
                   className="relative h-full w-full overflow-hidden"
                   style={{
-                    background: 'rgba(15, 15, 20, 0.65)',
-                    backdropFilter: 'blur(40px)',
-                    WebkitBackdropFilter: 'blur(40px)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    background: 'rgba(15, 15, 20, 0.9)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
                     borderRadius: '2.5rem',
                     padding: '2.25rem',
-                    boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
                   }}
                 >
                   {/* Liquid accent inside card */}

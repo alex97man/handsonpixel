@@ -7,6 +7,7 @@ import Portofoliu from './pages/Portofoliu';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
+import AITest from './pages/AITest';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="portofoliu" element={<Portofoliu />} />
           <Route path="blog" element={<Blog />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="studio-test" element={<AITest />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
