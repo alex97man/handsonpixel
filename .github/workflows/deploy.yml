@@ -1,19 +1,15 @@
-# 1. You need a name for the whole workflow
-name: Project Deployment
-
-# 2. You MUST define 'on' (the trigger)
+name: Deploy to Romarg via FTP
 on:
   push:
-    branches: [ main ]  # Runs every time you push to main
+    branches:
+      - main
 
-# 3. Everything else must be nested under 'jobs'
 jobs:
   deploy:
     name: Build & Deploy
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
@@ -26,10 +22,13 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install
 
-      - name: 🏗️ Build Project
+      - name: 🚀 Build project
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: npm run build
 
-      - name: 🚀 Deploy via FTP
+      - name: 📂 Sync files to Romarg
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
