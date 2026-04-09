@@ -1,0 +1,23 @@
+# Directories to ignore for AI indexing to prevent hangs
+node_modules/
+dist/
+dist-ssr/
+.git/
+.cache/
+.contentlayer/
+.next/
+.turbo/
+out/
+build/
+*.log
+*.tmp
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.env
+.env.*
+!.env.example
+coverage/
+.nyc_output/
+.vercel/
+.netlify/
