@@ -1,24 +1,39 @@
-deploy:
-name: Build & Deploy
-runs-on: ubuntu-latest
+# 1. You need a name for the whole workflow
+name: Project Deployment
+
+# 2. You MUST define 'on' (the trigger)
+on:
+  push:
+    branches: [ main ]  # Runs every time you push to main
+
+# 3. Everything else must be nested under 'jobs'
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-steps:
-- name: 🚚 Get latest code
-uses: actions/checkout@v4
 
-- name: 🛠️ Set up Node.js
-uses: actions/setup-node@v4
-with:
-          node-version: 20
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Set up Node.js
+        uses: actions/setup-node@v4
+        with:
           node-version: 22
 
-- name: 📦 Install dependencies
-run: npm install
-@@ -33,4 +35,5 @@ jobs:
-username: ${{ secrets.FTP_USERNAME }}
-password: ${{ secrets.FTP_PASSWORD }}
-local-dir: ./dist/
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🏗️ Build Project
+        run: npm run build
+
+      - name: 🚀 Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
           server-dir: ./public_html/
-          server-dir: ./public_html/
-          concurrency: 1
