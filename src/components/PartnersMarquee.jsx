@@ -38,7 +38,7 @@ export default function PartnersGrid() {
                   y: [0, -8, 0],
                 }}
                 transition={{
-                  duration: 4 + Math.random() * 2,
+                  duration: 4 + (index % 3) * 0.7,
                   repeat: Infinity,
                   ease: "easeInOut",
                   delay: index * 0.2

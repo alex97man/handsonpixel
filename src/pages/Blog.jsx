@@ -82,7 +82,6 @@ export default function Blog() {
           {articles.map((article, index) => {
             // Logic for the Focus state
             const isDimmed = hoveredId !== null && hoveredId !== article.id;
-            const isHovered = hoveredId === article.id;
 
             return (
               <motion.div

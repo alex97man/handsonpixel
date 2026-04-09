@@ -23,7 +23,8 @@ const stepVariants = {
 
 // --- SUB-COMPONENTS ---
 
-const LiquidCard = ({ title, icon: Icon, selected, onClick, multi = false }) => (
+// eslint-disable-next-line no-unused-vars
+const LiquidCard = ({ title, icon: Icon, selected, onClick }) => (
   <button
     type="button"
     onClick={onClick}

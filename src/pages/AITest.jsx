@@ -12,7 +12,6 @@ const PRESETS = [
 
 export default function AITest() {
   const [image, setImage] = useState(null);
-  const [noBgImage, setNoBgImage] = useState(null);
   const [finalImage, setFinalImage] = useState(null);
   const [status, setStatus] = useState('idle'); // idle, removing_bg, generating, success, error
   const [selectedPreset, setSelectedPreset] = useState(PRESETS[0]);
@@ -26,7 +25,6 @@ export default function AITest() {
       const reader = new FileReader();
       reader.onload = () => {
         setImage(reader.result);
-        setNoBgImage(null);
         setFinalImage(null);
         setStatus('idle');
       };
@@ -54,8 +52,6 @@ export default function AITest() {
         console.error('Structură BG Result neașteptată:', bgResult);
         throw new Error('Nu am putut recupera imaginea fără fundal. Verifică consola pentru detalii.');
       }
-      
-      setNoBgImage(bgUrl);
       
       // Pas 2: Generare Scenă
       setStatus('generating');

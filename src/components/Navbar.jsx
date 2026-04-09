@@ -1,16 +1,15 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import logo from '../assets/hop_logo-light.png';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const location = useLocation();
 
-  useEffect(() => { setIsOpen(false); }, [location.pathname]);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,7 +57,7 @@ export default function Navbar() {
                 transition={{ duration: 0.3 }}
                 className="flex-shrink-0"
               >
-                <Link to="/" className="flex items-center">
+                <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center">
                   <img src={logo} alt="Hands On Pixel" className="h-7 md:h-9 w-auto hover:brightness-110 transition-all" />
                 </Link>
               </motion.div>

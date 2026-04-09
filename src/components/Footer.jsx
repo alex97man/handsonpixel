@@ -1,6 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Mail, ArrowRight } from 'lucide-react';
-import logo from '../assets/hop_logo-light.png';
 
 const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</span>;
 

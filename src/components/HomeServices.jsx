@@ -73,7 +73,7 @@ function MobileServices() {
     const start = index * cardStep;
     const end = (index + 1) * cardStep;
 
-    const isActive = progress >= start && (index === SERVICES.length - 1 ? true : progress < end);
+    // const isActive = progress >= start && (index === SERVICES.length - 1 ? true : progress < end);
     const isPast = progress >= end && index < SERVICES.length - 1;
 
     // Transition values

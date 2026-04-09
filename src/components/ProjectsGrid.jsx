@@ -13,7 +13,7 @@ const projects = [
   { id: 6, title: 'EXPERIMENTAL', category: 'Fotografie de produs / 360', mainCategory: 'Fotografie', image: 'https://handsonpixel.ro/wp-content/uploads/2026/01/PNGALCALIA-scaled.png' },
 ];
 
-const ProjectCard = ({ project, index }) => {
+const ProjectCard = ({ project }) => {
   const cardRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -139,8 +139,8 @@ export default function ProjectsGrid() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
         >
           <AnimatePresence mode='popLayout'>
-            {filteredProjects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
+            {filteredProjects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
             ))}
           </AnimatePresence>
         </motion.div>

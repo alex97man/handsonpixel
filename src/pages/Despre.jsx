@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { useRef } from 'react';
 import { Focus, TrendingUp, MessageSquare } from 'lucide-react';
 
@@ -48,7 +48,6 @@ const lessons = [
 ];
 
 export default function Despre() {
-  const parallaxRef = useRef(null);
   const timelineRef = useRef(null);
 
   // Timeline scroll progress
@@ -63,13 +62,9 @@ export default function Despre() {
     restDelta: 0.001
   });
 
-  // Hero parallax progress
-  const { scrollYProgress: heroProgress } = useScroll({
-    target: parallaxRef,
-    offset: ["start end", "end start"]
-  });
+  // Timeline scroll progress
 
-  const yBg = useTransform(heroProgress, [0, 1], ["-20%", "20%"]);
+
 
   return (
     <div className="w-full relative">
