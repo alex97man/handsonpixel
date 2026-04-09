@@ -1,52 +1,24 @@
-# Suprascrie fișierul
-@'
-name: Deploy to Romarg via FTP
-on:
-  push:
-    branches:
-      - main
-
-concurrency:
-  group: deploy
-  cancel-in-progress: true
-
-jobs:
-  deploy:
-    name: Build & Deploy
-    runs-on: ubuntu-latest
+deploy:
+name: Build & Deploy
+runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-    steps:
-      - name: Get latest code
-        uses: actions/checkout@v4
+steps:
+- name: 🚚 Get latest code
+uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
+- name: 🛠️ Set up Node.js
+uses: actions/setup-node@v4
+with:
+          node-version: 20
           node-version: 22
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        env:
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-        run: npm run build
-
-      - name: Sync files to Romarg
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
+- name: 📦 Install dependencies
+run: npm install
+@@ -33,4 +35,5 @@ jobs:
+username: ${{ secrets.FTP_USERNAME }}
+password: ${{ secrets.FTP_PASSWORD }}
+local-dir: ./dist/
           server-dir: ./public_html/
-          security: loose
-          timeout: 60000
-'@ | Set-Content .github/workflows/deploy.yml
-
-# Apoi commit și push
-git add .github/workflows/deploy.yml
-git commit -m "fix: move concurrency out of FTP step, add timeout and loose security"
-git push origin main
+          server-dir: ./public_html/
+          concurrency: 1
