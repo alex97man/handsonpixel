@@ -186,7 +186,7 @@ export default function Servicii() {
             Servicii
           </motion.p>
 
-          <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-tighter leading-[0.85] mb-8">
+          <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-normal leading-[0.85] mb-8">
             UNDE IDEILE <br />
             DEVIN CIFRE<BlueDot />
           </motion.h1>

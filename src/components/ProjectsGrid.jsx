@@ -2,16 +2,31 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import vlt2024Hero from '../assets/hero_kv_vlt2024.jpg';
+import vlt2025Hero from '../assets/hero_kv_vlt2025.jpg';
+import packshotThumb from '../assets/PACKSHOT/HERO_BANNER_PACKSHOT.jpg';
+import blueThumb from '../assets/BLUE/BLUE2.jpg';
+import experimentalThumb from '../assets/EXPERIMENTAL/banner ulei.jpg';
+import beerstationThumb from '../assets/BEERSTATION.RO/img3.jpg';
+import personalizabileThumb from '../assets/PRODUSE-PERSONALIZABILE/banner.jpg';
+import soulyPhotoThumb from '../assets/SOULYPHOTO/5.jpg';
+import soulyRoThumb from '../assets/souly.ro/banner1.png';
 
 const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</span>;
 
 const projects = [
-  { id: 1, title: 'SOULY.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: 'https://handsonpixel.ro/wp-content/uploads/2026/02/banner1-scaled.png', link: '/portofoliu/souly-ro' },
-  { id: 2, title: 'PACKSHOT', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: 'https://handsonpixel.ro/wp-content/uploads/2026/01/STICLA1-scaled.png', link: '/portofoliu/packshot' },
-  { id: 3, title: 'BLUE', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: 'https://handsonpixel.ro/wp-content/uploads/2022/06/DSC08704-scaled.png', link: '/portofoliu/blue' },
-  { id: 4, title: 'SOULY Photography', category: 'Fotografie / Lifestyle', mainCategory: 'Fotografie', image: 'https://handsonpixel.ro/wp-content/uploads/2022/06/site_souly.png', link: '/portofoliu/souly-photo' },
-  { id: 5, title: 'BEERSTATION.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: 'https://handsonpixel.ro/wp-content/uploads/2022/06/9redim.jpg', link: '/portofoliu/beerstation-ro' },
-  { id: 6, title: 'EXPERIMENTAL', category: 'Fotografie de produs / 360', mainCategory: 'Fotografie', image: 'https://handsonpixel.ro/wp-content/uploads/2026/01/PNGALCALIA-scaled.png', link: '/portofoliu/experimental' },
+  { id: 1, title: 'SOULY.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: soulyRoThumb, link: '/portofoliu/souly-ro' },
+  { id: 2, title: 'PACKSHOT', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: packshotThumb, link: '/portofoliu/packshot' },
+  { id: 3, title: 'BLUE', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: blueThumb, link: '/portofoliu/blue' },
+  { id: 4, title: 'SOULY Photography', category: 'Fotografie / Lifestyle', mainCategory: 'Fotografie', image: soulyPhotoThumb, link: '/portofoliu/souly-photo' },
+  { id: 5, title: 'BEERSTATION.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: beerstationThumb, link: '/portofoliu/beerstation-ro' },
+  { id: 6, title: 'EXPERIMENTAL', category: 'Fotografie de produs / 360', mainCategory: 'Fotografie', image: experimentalThumb, link: '/portofoliu/experimental' },
+  { id: 7, title: 'PRODUSE PERSONALIZABILE', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: personalizabileThumb, link: '/portofoliu/produse-personalizabile' },
+  { id: 8, title: 'RESEARCH REPORT', category: 'Design Grafic', mainCategory: 'Design', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2026&auto=format&fit=crop', link: '/portofoliu/research-report' },
+  { id: 9, title: 'REBRANDING VERDE LA TEATRU', category: 'Design Grafic', mainCategory: 'Design', image: 'https://images.unsplash.com/photo-1543733216-796835de38bb?q=80&w=2070&auto=format&fit=crop', link: '/portofoliu/rebranding-verde-la-teatru' },
+  { id: 10, title: 'KV VERDE LA TEATRU 2024', category: 'Design Grafic', mainCategory: 'Design', image: vlt2024Hero, link: '/portofoliu/kv-verde-la-teatru-2024' },
+  { id: 11, title: 'KV VERDE LA TEATRU 2025', category: 'Design Grafic', mainCategory: 'Design', image: vlt2025Hero, link: '/portofoliu/kv-verde-la-teatru-2025' },
+  { id: 12, title: 'LOGO SOULY', category: 'Design Grafic', mainCategory: 'Design', image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2071&auto=format&fit=crop', link: '/portofoliu/logo-souly' },
 ];
 
 const ProjectCard = ({ project }) => {

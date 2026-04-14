@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import beerstationThumb from '../assets/BEERSTATION.RO/img3.jpg';
+import packshotThumb from '../assets/PACKSHOT/HERO_BANNER_PACKSHOT.jpg';
+import soulyRoThumb from '../assets/souly.ro/banner1.png';
 
 const featuredProjects = [
   {
@@ -9,7 +12,7 @@ const featuredProjects = [
     title: 'SOULY.RO',
     category: 'Shopify Ecommerce',
     preview: 'Revoluționarea experienței de shopping prin minimalism și viteză supremă.',
-    image: 'https://handsonpixel.ro/wp-content/uploads/2026/02/banner1-scaled.png',
+    image: soulyRoThumb,
     num: '01',
     link: '/portofoliu/souly-ro'
   },
@@ -27,7 +30,7 @@ const featuredProjects = [
     title: 'BEERSTATION',
     category: 'Shopify Ecommerce',
     preview: 'O platformă robustă pentru pasionații de berărie artizanală, axată pe accesibilitate și brand.',
-    image: 'https://handsonpixel.ro/wp-content/uploads/2022/06/9redim.jpg',
+    image: beerstationThumb,
     num: '03',
     link: '/portofoliu/beerstation-ro'
   }

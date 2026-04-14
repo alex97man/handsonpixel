@@ -2,6 +2,10 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import souly5 from '../../assets/SOULYPHOTO/5.jpg';
+import souly7 from '../../assets/SOULYPHOTO/7.jpg';
+import souly9 from '../../assets/SOULYPHOTO/9.jpg';
+import heroImg from '../../assets/SOULYPHOTO/banner.jpg';
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -25,7 +29,7 @@ export default function SoulyPhoto() {
           <motion.p variants={fadeUpVariants} className="text-white/50 uppercase font-bold tracking-[0.3em] text-xs md:text-sm mb-6 flex items-center gap-4">
             Fotografie / Lifestyle
           </motion.p>
-          <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-tighter leading-[0.85] mb-8">
+          <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-normal leading-[0.85] mb-8">
             SOULY PHOTOGRAPHY<span className="text-accent font-['Russo_One'] ml-1">.</span>
           </motion.h1>
           <motion.p variants={fadeUpVariants} className="text-xl md:text-2xl text-muted max-w-2xl font-medium leading-relaxed">
@@ -45,7 +49,7 @@ export default function SoulyPhoto() {
         >
           <motion.img 
              style={{ y, scale: 1.3 }}
-             src="https://handsonpixel.ro/wp-content/uploads/2022/06/site_souly.png" alt="Souly Photo Showcase" className="w-full h-full object-cover" />
+             src={heroImg} alt="Souly Photo Showcase" className="w-full h-full object-cover" />
         </motion.div>
       </section>
 
@@ -74,24 +78,27 @@ export default function SoulyPhoto() {
       </section>
 
       {/* 4. SECONDARY IMAGE / GALLERIES */}
-      <section className="px-6 md:px-8 max-w-5xl mx-auto mb-32 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[4/5] border border-white/10">
-          <img src="https://handsonpixel.ro/wp-content/uploads/2022/06/site_souly.png" alt="Detail 1" className="w-full h-full object-cover" />
+      <section className="px-6 md:px-8 max-w-5xl mx-auto mb-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10">
+          <img src={souly5} alt="Photography detail 1" className="w-full h-full object-cover" />
         </motion.div>
-        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[4/5] border border-white/10 relative">
-          <div className="absolute inset-0 bg-accent/5 flex items-center justify-center p-8 text-center">
-             <p className="text-white text-xl font-medium tracking-wide">Încarcă un alt cadru aici 📸</p>
-          </div>
+        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10">
+          <img src={souly7} alt="Photography detail 2" className="w-full h-full object-cover" />
         </motion.div>
-      </section>
+        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10">
+          <img src={souly9} alt="Photography detail 3" className="w-full h-full object-cover" />
+        </motion.div>
+      </div>
+    </section>
 
       {/* 5. NEXT PROJECT BUTTON */}
       <section className="px-6 md:px-8 max-w-5xl mx-auto flex justify-end">
-         <Link to="/portofoliu/souly-ro" className="group inline-flex items-center gap-6 p-8 rounded-[2rem] border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] transition-all hover:border-accent/50 w-full md:w-auto">
+         <Link to="/portofoliu/produse-personalizabile" className="group inline-flex items-center gap-6 p-8 rounded-[2rem] border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] transition-all hover:border-accent/50 w-full md:w-auto">
             <div className="text-left">
                <div className="text-accent text-[10px] font-bold uppercase tracking-widest mb-2">VEZI PROIECTUL URMĂTOR</div>
                <div className="text-2xl font-black text-white uppercase tracking-tight group-hover:text-accent transition-colors">
-                  SOULY.RO
+                  PRODUSE PERSONALIZABILE
                </div>
             </div>
             <div className="w-12 h-12 shrink-0 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-300">

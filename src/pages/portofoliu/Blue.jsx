@@ -2,6 +2,10 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import heroImg from '../../assets/BLUE/HERO_BANNER_BLUE.jpg';
+import blue1 from '../../assets/BLUE/BLUE1.jpg';
+import blue2 from '../../assets/BLUE/BLUE2.jpg';
+import blue3 from '../../assets/BLUE/BLUE3.jpg';
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -25,7 +29,7 @@ export default function Blue() {
           <motion.p variants={fadeUpVariants} className="text-white/50 uppercase font-bold tracking-[0.3em] text-xs md:text-sm mb-6 flex items-center gap-4">
             Fotografie de Produs
           </motion.p>
-          <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-tighter leading-[0.85] mb-8">
+          <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-normal leading-[0.85] mb-8">
             BLUE<span className="text-accent font-['Russo_One'] ml-1">.</span>
           </motion.h1>
           <motion.p variants={fadeUpVariants} className="text-xl md:text-2xl text-muted max-w-2xl font-medium leading-relaxed">
@@ -44,8 +48,8 @@ export default function Blue() {
           className="w-full rounded-[2.5rem] overflow-hidden aspect-video border border-white/10 relative"
         >
           <motion.img 
-             style={{ y, scale: 1.3 }}
-             src="https://handsonpixel.ro/wp-content/uploads/2022/06/DSC08704-scaled.png" alt="Blue Showcase" className="w-full h-full object-cover" />
+            style={{ y, scale: 1.3 }}
+            src={heroImg} alt="Blue Project Hero" className="w-full h-full object-cover" />
         </motion.div>
       </section>
 
@@ -74,18 +78,33 @@ export default function Blue() {
       </section>
 
       {/* 4. SECONDARY IMAGE / GALLERIES */}
-      <section className="px-6 md:px-8 max-w-5xl mx-auto mb-32 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[4/5] border border-white/10">
-          <img src="https://handsonpixel.ro/wp-content/uploads/2022/06/DSC08704-scaled.png" alt="Detail 1" className="w-full h-full object-cover" />
+      <section className="px-6 md:px-8 max-w-5xl mx-auto mb-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10">
+            <img src={blue1} alt="Product detail 1" className="w-full h-full object-cover" />
+          </motion.div>
+          <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10">
+            <img src={blue2} alt="Product detail 2" className="w-full h-full object-cover" />
+          </motion.div>
+          <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10">
+            <img src={blue3} alt="Product detail 3" className="w-full h-full object-cover" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 5. INTERACTIVE 360 VIEW */}
+      <section className="px-6 md:px-8 max-w-5xl mx-auto mb-32 relative">
+        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-text uppercase tracking-tight mb-4">Experiență 360°<span className="text-accent font-['Russo_One'] ml-1">.</span></h2>
+           <p className="text-muted text-lg">Interacționează cu produsul vizualizând fiecare detaliu.</p>
         </motion.div>
-        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[4/5] border border-white/10 relative">
-          <div className="absolute inset-0 bg-accent/5 flex items-center justify-center p-8 text-center">
-             <p className="text-white text-xl font-medium tracking-wide">Încarcă un alt cadru aici 📸</p>
-          </div>
+        
+        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="w-full rounded-[2.5rem] overflow-hidden aspect-video md:aspect-[21/9] border border-white/10 bg-white relative flex items-center justify-center p-4">
+          <iframe src="https://alex97man.sirv.com/alcalia/alcalia.spin" width="100%" height="100%" frameBorder="0" allowFullScreen className="w-full h-full absolute inset-0"></iframe>
         </motion.div>
       </section>
 
-      {/* 5. NEXT PROJECT BUTTON */}
+      {/* 6. NEXT PROJECT BUTTON */}
       <section className="px-6 md:px-8 max-w-5xl mx-auto flex justify-end">
          <Link to="/portofoliu/souly-photo" className="group inline-flex items-center gap-6 p-8 rounded-[2rem] border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] transition-all hover:border-accent/50 w-full md:w-auto">
             <div className="text-left">

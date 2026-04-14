@@ -15,10 +15,16 @@ import Packshot from './pages/portofoliu/Packshot';
 import Experimental from './pages/portofoliu/Experimental';
 import Blue from './pages/portofoliu/Blue';
 import SoulyPhoto from './pages/portofoliu/SoulyPhoto';
+import ProdusePersonalizabile from './pages/portofoliu/ProdusePersonalizabile';
+import ResearchReport from './pages/portofoliu/ResearchReport';
+import RebrandingVerde from './pages/portofoliu/RebrandingVerde';
+import KVVerde2024 from './pages/portofoliu/KVVerde2024';
+import KVVerde2025 from './pages/portofoliu/KVVerde2025';
+import LogoSouly from './pages/portofoliu/LogoSouly';
 
-import VitezaSite from './pages/blog/VitezaSite';
-import DesignBrutalist from './pages/blog/DesignBrutalist';
-import HeadlessEcommerce from './pages/blog/HeadlessEcommerce';
+import FotografieProdus from './pages/blog/FotografieProdus';
+import LogoBusiness from './pages/blog/LogoBusiness';
+import ShopifyVsWooCommerce from './pages/blog/ShopifyVsWooCommerce';
 
 function App() {
   return (
@@ -36,11 +42,17 @@ function App() {
           <Route path="portofoliu/experimental" element={<Experimental />} />
           <Route path="portofoliu/blue" element={<Blue />} />
           <Route path="portofoliu/souly-photo" element={<SoulyPhoto />} />
+          <Route path="portofoliu/produse-personalizabile" element={<ProdusePersonalizabile />} />
+          <Route path="portofoliu/research-report" element={<ResearchReport />} />
+          <Route path="portofoliu/rebranding-verde-la-teatru" element={<RebrandingVerde />} />
+          <Route path="portofoliu/kv-verde-la-teatru-2024" element={<KVVerde2024 />} />
+          <Route path="portofoliu/kv-verde-la-teatru-2025" element={<KVVerde2025 />} />
+          <Route path="portofoliu/logo-souly" element={<LogoSouly />} />
 
           <Route path="blog" element={<Blog />} />
-          <Route path="blog/viteza-site" element={<VitezaSite />} />
-          <Route path="blog/design-brutalist" element={<DesignBrutalist />} />
-          <Route path="blog/headless-ecommerce" element={<HeadlessEcommerce />} />
+          <Route path="blog/fotografie-produs" element={<FotografieProdus />} />
+          <Route path="blog/logo-business" element={<LogoBusiness />} />
+          <Route path="blog/shopify-vs-woocommerce" element={<ShopifyVsWooCommerce />} />
 
           <Route path="contact" element={<Contact />} />
           <Route path="studio-test" element={<AITest />} />

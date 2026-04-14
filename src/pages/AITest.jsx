@@ -82,7 +82,7 @@ export default function AITest() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 mb-4 font-outfit uppercase tracking-tighter">
+          <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 mb-4 font-outfit uppercase tracking-normal">
             Product AI Studio <span className="text-xs align-top border border-purple-500 rounded px-1 ml-2 text-purple-200">BETA</span>
           </h1>
           <p className="text-zinc-400 max-w-2xl mx-auto">

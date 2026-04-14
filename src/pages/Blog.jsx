@@ -9,31 +9,31 @@ const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</s
 const articles = [
   {
     id: 1,
-    title: "Cum viteza site-ului îți sabotează conversia în 2024",
-    excerpt: "Analizăm tehnic de ce un timp de încărcare mai mare de 1.5s te costă până la 30% din veniturile lunare și cum rezolvă o arhitectură hibridă React această pierdere imensă.",
-    category: "Performanță",
-    date: "14 Oct 2024",
-    imageUrl: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2070&q=80",
+    title: "De ce fotografiile proaste îți omoară vânzările online — și cum le înlocuiești fără buget mare",
+    excerpt: "Ai un produs bun. Ai un site funcțional. Ai configurat plata și livrarea. Dar vânzările nu vin. Fotografia este primul filtru și singurul canal de comunicare senzorială. Descoperă impactul direct asupra conversiilor.",
+    category: "Fotografie produs",
+    date: "29 MARTIE 2026",
+    imageUrl: "https://images.unsplash.com/photo-1527011045974-4b533e5acc14?auto=format&fit=crop&w=2070&q=80",
     featured: true,
-    link: "/blog/viteza-site"
+    link: "/blog/fotografie-produs"
   },
   {
     id: 2,
-    title: "Design Brutalist: Moft Estetic sau ROI Suprem?",
-    excerpt: "Interfețele au devenit curate până la pragul sterilității. Explorăm cum o abordare estetică agresivă sparge tiparele de ignoranță ale consumatorului.",
-    category: "UI/UX",
-    date: "02 Oct 2024",
-    imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1964&q=80",
-    link: "/blog/design-brutalist"
+    title: "Logo-ul tău spune ceva despre afacerea ta. Dar ce anume?",
+    excerpt: "Indiferent de situație, logo-ul tău comunică ceva — în mod constant, fără să ai control asupra mesajului.",
+    category: "Design grafic",
+    date: "19 MARTIE 2026",
+    imageUrl: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=2071&q=80",
+    link: "/blog/logo-business"
   },
   {
     id: 3,
-    title: "Headless E-commerce: Sfârșitul temelor grele",
-    excerpt: "De ce abandonăm temele monolit pentru dezvoltare custom și arhitecturi complet decouple-ate pentru flexibilitate infinită.",
-    category: "Tehnologie",
-    date: "24 Sep 2024",
-    imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=2070&q=80",
-    link: "/blog/headless-ecommerce"
+    title: "Shopify vs. WooCommerce în 2025: Ce alege un antreprenor român?",
+    excerpt: "Diferențele dintre platformele de e-commerce. Analizăm costurile reale, securitatea și scalabilitatea pentru afaceri serios.",
+    category: "E-commerce",
+    date: "14 MARTIE 2026",
+    imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=2070&q=80",
+    link: "/blog/shopify-vs-woocommerce"
   }
 ];
 
@@ -65,7 +65,7 @@ export default function Blog() {
             Blog
           </motion.p>
 
-          <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-tighter leading-[0.85] mb-8">
+          <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-normal leading-[0.85] mb-8">
             PERSPECTIVE<BlueDot /> <br />
 
           </motion.h1>
@@ -141,9 +141,7 @@ export default function Blog() {
 
                   {/* Main Text Content */}
                   <div className="relative z-10 w-full max-w-2xl">
-                    <h2 className={`font-black uppercase text-white mb-4 leading-[1.1] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2
-                        ${article.featured ? 'text-4xl md:text-5xl lg:text-6xl' : 'text-3xl md:text-4xl'}
-                     `}>
+                    <h2 className="font-black uppercase text-white mb-4 leading-[1.1] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 text-2xl md:text-3xl">
                       {article.title}
                     </h2>
 

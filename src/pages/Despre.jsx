@@ -87,7 +87,7 @@ export default function Despre() {
             DESPRE
           </motion.p>
 
-          <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-tighter leading-[0.85] mb-8">
+          <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-normal leading-[0.85] mb-8">
             5 ani de pixeli <br />
             puși la locul lor<BlueDot />
           </motion.h1>

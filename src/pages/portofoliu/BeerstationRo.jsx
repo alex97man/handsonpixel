@@ -2,6 +2,10 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import heroImg from '../../assets/BEERSTATION.RO/banner-hero-beerstation.ro.jpg';
+import img1 from '../../assets/BEERSTATION.RO/img1.jpg';
+import img2 from '../../assets/BEERSTATION.RO/img2.jpg';
+import img3 from '../../assets/BEERSTATION.RO/img3.jpg';
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -25,7 +29,7 @@ export default function BeerstationRo() {
           <motion.p variants={fadeUpVariants} className="text-white/50 uppercase font-bold tracking-[0.3em] text-xs md:text-sm mb-6 flex items-center gap-4">
             Shopify Ecommerce
           </motion.p>
-          <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-tighter leading-[0.85] mb-8">
+          <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-normal leading-[0.85] mb-8">
             BEERSTATION.RO<span className="text-accent font-['Russo_One'] ml-1">.</span>
           </motion.h1>
           <motion.p variants={fadeUpVariants} className="text-xl md:text-2xl text-muted max-w-2xl font-medium leading-relaxed">
@@ -45,7 +49,7 @@ export default function BeerstationRo() {
         >
           <motion.img 
              style={{ y, scale: 1.3 }}
-             src="https://handsonpixel.ro/wp-content/uploads/2022/06/9redim.jpg" alt="Beerstation.ro Showcase" className="w-full h-full object-cover" />
+             src={heroImg} alt="Beerstation.ro Hero" className="w-full h-full object-cover" />
         </motion.div>
       </section>
 
@@ -74,16 +78,19 @@ export default function BeerstationRo() {
       </section>
 
       {/* 4. SECONDARY IMAGE / GALLERIES */}
-      <section className="px-6 md:px-8 max-w-5xl mx-auto mb-32 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[4/5] border border-white/10">
-          <img src="https://handsonpixel.ro/wp-content/uploads/2022/06/9redim.jpg" alt="Detail 1" className="w-full h-full object-cover" />
+      <section className="px-6 md:px-8 max-w-5xl mx-auto mb-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10">
+          <img src={img1} alt="Project detail 1" className="w-full h-full object-cover" />
         </motion.div>
-        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[4/5] border border-white/10 relative">
-          <div className="absolute inset-0 bg-accent/5 flex items-center justify-center p-8 text-center">
-             <p className="text-white text-xl font-medium tracking-wide">Încarcă un alt cadru aici 📸</p>
-          </div>
+        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10">
+          <img src={img2} alt="Project detail 2" className="w-full h-full object-cover" />
         </motion.div>
-      </section>
+        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10">
+          <img src={img3} alt="Project detail 3" className="w-full h-full object-cover" />
+        </motion.div>
+      </div>
+    </section>
 
       {/* 5. NEXT PROJECT BUTTON */}
       <section className="px-6 md:px-8 max-w-5xl mx-auto flex justify-end">

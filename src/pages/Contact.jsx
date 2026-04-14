@@ -315,7 +315,7 @@ export default function Contact() {
                <CheckCircle2 className="w-16 h-16 text-accent" />
             </div>
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">Brief Trimis.</h1>
+              <h1 className="text-4xl md:text-6xl font-black uppercase tracking-normal">Brief Trimis.</h1>
               <p className="text-xl text-muted font-medium leading-relaxed">
                 Mulțumim, {formData.name.split(' ')[0]}. Am preluat datele tale și ne vom uita peste briefer-ul tău în cel mai scurt timp.
               </p>

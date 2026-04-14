@@ -119,7 +119,7 @@ export default function HeroSection() {
                   opacity: { duration: 0.6 },
                   filter: { duration: 0.6 }
                 }}
-                className={`${WORDS[wordIndex] === 'PIXEL' ? 'text-accent' : 'text-white'} text-[17vw] sm:text-8xl md:text-9xl lg:text-[12rem] leading-none font-black uppercase tracking-tighter drop-shadow-[0_0_60px_rgba(63,183,188,0.4)]`}
+                className={`${WORDS[wordIndex] === 'PIXEL' ? 'text-accent' : 'text-white'} text-[17vw] sm:text-8xl md:text-9xl lg:text-[12rem] leading-none font-black uppercase tracking-normal drop-shadow-[0_0_60px_rgba(63,183,188,0.4)]`}
               >
                 {WORDS[wordIndex]}
               </motion.h1>

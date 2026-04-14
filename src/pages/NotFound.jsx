@@ -17,7 +17,7 @@ export default function NotFound() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="relative inline-block"
         >
-          <h1 className="text-[10rem] md:text-[15rem] font-black leading-none tracking-tighter text-white/5 select-none">
+          <h1 className="text-[10rem] md:text-[15rem] font-black leading-none tracking-normal text-white/5 select-none">
             404
           </h1>
           <div className="absolute inset-0 flex items-center justify-center">
