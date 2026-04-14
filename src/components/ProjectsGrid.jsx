@@ -1,16 +1,17 @@
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</span>;
 
 const projects = [
-  { id: 1, title: 'SOULY.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: 'https://handsonpixel.ro/wp-content/uploads/2026/02/banner1-scaled.png' },
-  { id: 2, title: 'PACKSHOT', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: 'https://handsonpixel.ro/wp-content/uploads/2026/01/STICLA1-scaled.png' },
-  { id: 3, title: 'BLUE', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: 'https://handsonpixel.ro/wp-content/uploads/2022/06/DSC08704-scaled.png' },
-  { id: 4, title: 'SOULY Photography', category: 'Fotografie / Lifestyle', mainCategory: 'Fotografie', image: 'https://handsonpixel.ro/wp-content/uploads/2022/06/site_souly.png' },
-  { id: 5, title: 'BEERSTATION.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: 'https://handsonpixel.ro/wp-content/uploads/2022/06/9redim.jpg' },
-  { id: 6, title: 'EXPERIMENTAL', category: 'Fotografie de produs / 360', mainCategory: 'Fotografie', image: 'https://handsonpixel.ro/wp-content/uploads/2026/01/PNGALCALIA-scaled.png' },
+  { id: 1, title: 'SOULY.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: 'https://handsonpixel.ro/wp-content/uploads/2026/02/banner1-scaled.png', link: '/portofoliu/souly-ro' },
+  { id: 2, title: 'PACKSHOT', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: 'https://handsonpixel.ro/wp-content/uploads/2026/01/STICLA1-scaled.png', link: '/portofoliu/packshot' },
+  { id: 3, title: 'BLUE', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: 'https://handsonpixel.ro/wp-content/uploads/2022/06/DSC08704-scaled.png', link: '/portofoliu/blue' },
+  { id: 4, title: 'SOULY Photography', category: 'Fotografie / Lifestyle', mainCategory: 'Fotografie', image: 'https://handsonpixel.ro/wp-content/uploads/2022/06/site_souly.png', link: '/portofoliu/souly-photo' },
+  { id: 5, title: 'BEERSTATION.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: 'https://handsonpixel.ro/wp-content/uploads/2022/06/9redim.jpg', link: '/portofoliu/beerstation-ro' },
+  { id: 6, title: 'EXPERIMENTAL', category: 'Fotografie de produs / 360', mainCategory: 'Fotografie', image: 'https://handsonpixel.ro/wp-content/uploads/2026/01/PNGALCALIA-scaled.png', link: '/portofoliu/experimental' },
 ];
 
 const ProjectCard = ({ project }) => {
@@ -33,7 +34,8 @@ const ProjectCard = ({ project }) => {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="group cursor-pointer relative"
     >
-      <div className="relative overflow-hidden rounded-[2.5rem] aspect-[4/5] bg-background-secondary border border-white/10 shadow-[0_0_25px_rgba(63,183,188,0.1)] group-hover:shadow-[0_0_40px_rgba(63,183,188,0.2)] transition-all duration-700">
+      <Link to={project.link || '#'} className="block h-full w-full">
+        <div className="relative overflow-hidden rounded-[2.5rem] aspect-[4/5] bg-background-secondary border border-white/10 shadow-[0_0_25px_rgba(63,183,188,0.1)] group-hover:shadow-[0_0_40px_rgba(63,183,188,0.2)] transition-all duration-700">
 
         {/* Background Image - Full Color */}
         <div className="absolute inset-0 z-0">
@@ -67,6 +69,7 @@ const ProjectCard = ({ project }) => {
           <div className="w-8 h-[2px] bg-accent/50 group-hover:w-16 transition-all duration-500" />
         </div>
       </div>
+      </Link>
     </motion.div>
   );
 };

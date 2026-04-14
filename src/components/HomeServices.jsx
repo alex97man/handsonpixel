@@ -275,7 +275,7 @@ function DesktopServices() {
                       <p className="text-muted text-sm font-medium leading-relaxed">{service.description}</p>
                     </div>
                     <div className="mt-8 flex items-center gap-2 text-xs font-bold uppercase tracking-widest" style={{ color: active ? '#3fb7bc' : '#8A8A8A', position: 'relative', zIndex: 10 }}>
-                      <span>Vezi pachete</span>
+                      <span>Vezi serviciile</span>
                       <ArrowRight style={{ width: '0.85rem', height: '0.85rem' }} />
                     </div>
                   </div>

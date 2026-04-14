@@ -11,6 +11,7 @@ const featuredProjects = [
     preview: 'Revoluționarea experienței de shopping prin minimalism și viteză supremă.',
     image: 'https://handsonpixel.ro/wp-content/uploads/2026/02/banner1-scaled.png',
     num: '01',
+    link: '/portofoliu/souly-ro'
   },
   {
     id: 2,
@@ -19,6 +20,7 @@ const featuredProjects = [
     preview: 'Perfecțiune tehnică în fiecare reflexie. Imagini care convertesc și dau viață catalogului tău.',
     image: 'https://handsonpixel.ro/wp-content/uploads/2026/01/STICLA1-scaled.png',
     num: '02',
+    link: '/portofoliu/packshot'
   },
   {
     id: 3,
@@ -27,6 +29,7 @@ const featuredProjects = [
     preview: 'O platformă robustă pentru pasionații de berărie artizanală, axată pe accesibilitate și brand.',
     image: 'https://handsonpixel.ro/wp-content/uploads/2022/06/9redim.jpg',
     num: '03',
+    link: '/portofoliu/beerstation-ro'
   }
 ];
 
@@ -140,8 +143,9 @@ function MobileProjects() {
                   justifyContent: 'center',
                 }}
               >
-                <div
-                  className="relative h-full w-full overflow-hidden"
+                <Link
+                  to={project.link || "#"}
+                  className="relative h-full w-full overflow-hidden block"
                   style={{
                     background: 'rgba(15, 15, 20, 0.98)',
                     backdropFilter: window.innerWidth < 768 ? 'none' : 'blur(20px)',
@@ -154,7 +158,7 @@ function MobileProjects() {
                   }}
                 >
                   {/* Full Project Image Background */}
-                  <div className="absolute inset-0 z-0">
+                  <div className="absolute inset-0 z-0 pointer-events-none">
                     <img
                       src={project.image}
                       alt={project.title}
@@ -181,15 +185,14 @@ function MobileProjects() {
                     </p>
 
                     <div className="pt-6 border-t border-white/10 flex items-center justify-between">
-                      <Link
-                        to="/portofoliu"
+                      <span
                         className="inline-flex items-center gap-2 text-accent text-xs font-bold uppercase tracking-widest hover:translate-x-1 transition-transform"
                       >
                         Vezi proiectul <ArrowRight className="w-4 h-4" />
-                      </Link>
+                      </span>
                     </div>
                   </div>
-                </div>
+                </Link>
               </motion.div>
             );
           })}
@@ -258,9 +261,9 @@ function DesktopProjects() {
             {featuredProjects.map((project, index) => {
               const c = cards[index];
               return (
-                <div key={project.id} style={{ transform: `translateX(${c.x}) scale(${c.scale}) rotate(${c.rotate}deg)`, opacity: c.opacity, zIndex: index + 10, transition: 'none' }}
-                  className="absolute w-full h-full bg-background-secondary rounded-[2.5rem] border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden group origin-bottom-left">
-                  <div className="absolute inset-0 z-0">
+                <Link to={project.link || "#"} key={project.id} style={{ transform: `translateX(${c.x}) scale(${c.scale}) rotate(${c.rotate}deg)`, opacity: c.opacity, zIndex: index + 10, transition: 'none' }}
+                  className="absolute block w-full h-full bg-background-secondary rounded-[2.5rem] border border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden group origin-bottom-left cursor-pointer">
+                  <div className="absolute inset-0 z-0 pointer-events-none">
                     <img src={project.image} alt={project.title} className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-[2.5s] ease-out opacity-60 grayscale group-hover:grayscale-0" />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent z-10" />
                   </div>
@@ -269,7 +272,7 @@ function DesktopProjects() {
                     <h3 className="text-4xl font-black text-text uppercase tracking-tight mb-4 leading-[0.9]">{project.title}</h3>
                     <p className="text-muted text-base font-medium leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500">{project.preview}</p>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

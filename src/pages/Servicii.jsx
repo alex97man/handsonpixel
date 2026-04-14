@@ -70,7 +70,7 @@ const services = [
           { service: 'Stickere', description: 'Format și specificații la cerere', price: 'de la 20€' },
           { service: 'Badge-uri', description: 'Nominale sau generice, indiferent de numărul de bucăți', price: 'de la 20€' },
           { service: 'Roll-up / Pop-up Spider', description: 'Format standard, pregătit pentru tipar', price: '50€' },
-          { service: 'Stand expozițional', description: 'Format și specificații la cerere', price: 'de la 100€' },
+          { service: 'Stand expozițional', description: 'Format și specificații la cerere', price: 'de la 150€' },
           { service: 'Materiale textile', description: 'Prelucrare design pentru print pe orice tip de material textil', price: 'de la 30€' }
         ],
         footer: 'Verificare setări culoare, rezoluție și bleed incluse.',

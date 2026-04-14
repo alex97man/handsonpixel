@@ -63,12 +63,12 @@ export default function Blog() {
           </motion.p>
 
           <motion.h1 variants={fadeUpVariants} className="text-4xl md:text-6xl lg:text-7xl font-black text-text uppercase tracking-tighter leading-[0.85] mb-8">
-            Gânduri <br />
-            <span className="text-white/20">& Cod<BlueDot /></span>
+            PERSPECTIVE<BlueDot /> <br />
+
           </motion.h1>
 
           <motion.p variants={fadeUpVariants} className="text-xl md:text-2xl text-muted max-w-2xl font-medium leading-relaxed">
-            Note de arhitectură, experimente de design extrem și analitice pure din spatele magazinelor online pe care le construim.
+            Articole practice despre e-commerce, fotografie de produs și design grafic.
           </motion.p>
         </motion.div>
       </section>

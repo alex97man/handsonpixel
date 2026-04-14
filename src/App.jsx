@@ -9,6 +9,13 @@ import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 import AITest from './pages/AITest';
 
+import SoulyRo from './pages/portofoliu/SoulyRo';
+import BeerstationRo from './pages/portofoliu/BeerstationRo';
+import Packshot from './pages/portofoliu/Packshot';
+import Experimental from './pages/portofoliu/Experimental';
+import Blue from './pages/portofoliu/Blue';
+import SoulyPhoto from './pages/portofoliu/SoulyPhoto';
+
 function App() {
   return (
     <BrowserRouter>
@@ -18,6 +25,14 @@ function App() {
           <Route path="despre" element={<Despre />} />
           <Route path="servicii" element={<Servicii />} />
           <Route path="portofoliu" element={<Portofoliu />} />
+          
+          <Route path="portofoliu/souly-ro" element={<SoulyRo />} />
+          <Route path="portofoliu/beerstation-ro" element={<BeerstationRo />} />
+          <Route path="portofoliu/packshot" element={<Packshot />} />
+          <Route path="portofoliu/experimental" element={<Experimental />} />
+          <Route path="portofoliu/blue" element={<Blue />} />
+          <Route path="portofoliu/souly-photo" element={<SoulyPhoto />} />
+
           <Route path="blog" element={<Blog />} />
           <Route path="contact" element={<Contact />} />
           <Route path="studio-test" element={<AITest />} />
