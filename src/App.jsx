@@ -16,6 +16,10 @@ import Experimental from './pages/portofoliu/Experimental';
 import Blue from './pages/portofoliu/Blue';
 import SoulyPhoto from './pages/portofoliu/SoulyPhoto';
 
+import VitezaSite from './pages/blog/VitezaSite';
+import DesignBrutalist from './pages/blog/DesignBrutalist';
+import HeadlessEcommerce from './pages/blog/HeadlessEcommerce';
+
 function App() {
   return (
     <BrowserRouter>
@@ -34,6 +38,10 @@ function App() {
           <Route path="portofoliu/souly-photo" element={<SoulyPhoto />} />
 
           <Route path="blog" element={<Blog />} />
+          <Route path="blog/viteza-site" element={<VitezaSite />} />
+          <Route path="blog/design-brutalist" element={<DesignBrutalist />} />
+          <Route path="blog/headless-ecommerce" element={<HeadlessEcommerce />} />
+
           <Route path="contact" element={<Contact />} />
           <Route path="studio-test" element={<AITest />} />
           <Route path="*" element={<NotFound />} />

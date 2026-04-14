@@ -139,8 +139,8 @@ export default function Despre() {
           initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariants}
           className="mb-24 text-center md:text-left"
         >
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6">
-            CE AM <span className="text-accent">ÎNVĂȚAT</span>.
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6 text-text">
+            CE AM ÎNVĂȚAT.
           </h2>
           <p className="text-muted text-lg md:text-xl font-medium max-w-xl">
             Ce nu îți oferă un curs teoretic, ci doar 5 ani de execuție zilnică:
@@ -149,7 +149,7 @@ export default function Despre() {
 
         <div className="relative">
           {/* Vertical Central Line (Axis) */}
-          <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-white/10 z-0">
+          <div className="absolute left-[20px] md:left-[39px] top-0 bottom-0 w-[2px] bg-white/10 z-0">
             {/* Active Teal Progress line */}
             <motion.div
               style={{ scaleY, originY: 0 }}
@@ -157,45 +157,46 @@ export default function Despre() {
             />
           </div>
 
-          <div className="space-y-24 md:space-y-32">
+          <div className="space-y-12 md:space-y-20">
             {lessons.map((lesson, idx) => (
-              <div key={idx} className={`relative flex items-center w-full ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+              <div key={idx} className="relative flex items-start w-full">
 
                 {/* Timeline node point */}
-                <motion.div
-                  initial={{ scale: 0.5, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: false, margin: "-20%" }}
-                  className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-background border-2 border-white/20 z-20"
-                >
-                  {/* Teal inner point that lights up when parent section is in view */}
+                <div className="shrink-0 w-[42px] md:w-[80px] flex items-center justify-center relative z-20 pt-8 md:pt-12">
                   <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
                     viewport={{ once: false, margin: "-20%" }}
-                    className="absolute inset-0 bg-accent rounded-full shadow-[0_0_15px_#3fb7bc]"
-                  />
-                </motion.div>
+                    className="w-4 h-4 rounded-full bg-background border-2 border-white/20 z-20 relative"
+                  >
+                    {/* Teal inner point that lights up when parent section is in view */}
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: false, margin: "-20%" }}
+                      className="absolute inset-0 bg-accent rounded-full shadow-[0_0_15px_#3fb7bc]"
+                    />
+                  </motion.div>
+                </div>
 
-                {/* Content Block */}
-                <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${idx % 2 === 0 ? 'md:pr-24' : 'md:pl-24'}`}>
+                {/* Content Block (Caseta) */}
+                <div className="w-full pr-0 md:pr-12">
                   <motion.div
-                    initial={{ opacity: 0, x: idx % 2 === 0 ? -40 : 40 }}
+                    initial={{ opacity: 0, x: 40 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: "-10%" }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="relative group bg-white/[0.02] border border-white/10 rounded-[2.5rem] p-8 md:p-12 hover:bg-white/[0.04] hover:border-accent/30 transition-all duration-500 overflow-hidden shadow-2xl"
                   >
-                    <h4 className="text-2xl md:text-3xl font-bold mb-4 uppercase tracking-tight text-text">
+                    <h4 className="text-2xl md:text-3xl font-bold mb-6 uppercase tracking-tight text-text relative z-10">
                       {lesson.title}
                     </h4>
-                    <p className="text-muted text-lg leading-relaxed font-medium whitespace-pre-line">
+                    <p className="text-muted text-base md:text-lg leading-relaxed font-medium whitespace-pre-line relative z-10">
                       {lesson.description}
                     </p>
                   </motion.div>
                 </div>
 
-                {/* Filler for the other side */}
-                <div className="hidden md:block md:w-1/2" />
               </div>
             ))}
           </div>

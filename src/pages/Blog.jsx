@@ -14,7 +14,8 @@ const articles = [
     category: "Performanță",
     date: "14 Oct 2024",
     imageUrl: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2070&q=80",
-    featured: true
+    featured: true,
+    link: "/blog/viteza-site"
   },
   {
     id: 2,
@@ -22,7 +23,8 @@ const articles = [
     excerpt: "Interfețele au devenit curate până la pragul sterilității. Explorăm cum o abordare estetică agresivă sparge tiparele de ignoranță ale consumatorului.",
     category: "UI/UX",
     date: "02 Oct 2024",
-    imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1964&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1964&q=80",
+    link: "/blog/design-brutalist"
   },
   {
     id: 3,
@@ -30,7 +32,8 @@ const articles = [
     excerpt: "De ce abandonăm temele monolit pentru dezvoltare custom și arhitecturi complet decouple-ate pentru flexibilitate infinită.",
     category: "Tehnologie",
     date: "24 Sep 2024",
-    imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=2070&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=2070&q=80",
+    link: "/blog/headless-ecommerce"
   }
 ];
 
@@ -160,7 +163,7 @@ export default function Blog() {
                 </div>
 
                 {/* Just a dummy link wrapper covering the card */}
-                <Link to="#" className="absolute inset-0 z-20"><span className="sr-only">Citește articolul</span></Link>
+                <Link to={article.link || "#"} className="absolute inset-0 z-20"><span className="sr-only">Citește articolul</span></Link>
 
               </motion.div>
             );
