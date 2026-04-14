@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -8,6 +9,10 @@ const fadeUpVariants = {
 };
 
 export default function Experimental() {
+  const targetRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: targetRef, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+
   return (
     <div className="w-full relative break-words text-text pb-24">
       {/* 1. HERO SECTION */}
@@ -30,15 +35,17 @@ export default function Experimental() {
       </section>
 
       {/* 2. MAIN IMAGE BANNER */}
-      <section className="px-6 md:px-8 max-w-5xl mx-auto mb-20">
+      <section ref={targetRef} className="px-6 md:px-8 max-w-5xl mx-auto mb-20 relative">
         <motion.div 
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="w-full rounded-[2.5rem] overflow-hidden aspect-video border border-white/10"
+          className="w-full rounded-[2.5rem] overflow-hidden aspect-video border border-white/10 relative"
         >
-          <img src="https://handsonpixel.ro/wp-content/uploads/2026/01/PNGALCALIA-scaled.png" alt="Experimental Showcase" className="w-full h-full object-cover origin-center" />
+          <motion.img 
+             style={{ y, scale: 1.3 }}
+             src="https://handsonpixel.ro/wp-content/uploads/2026/01/PNGALCALIA-scaled.png" alt="Experimental Showcase" className="w-full h-full object-cover origin-center" />
         </motion.div>
       </section>
 
