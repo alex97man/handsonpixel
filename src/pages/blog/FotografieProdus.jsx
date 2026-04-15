@@ -43,8 +43,11 @@ export default function FotografieProdus() {
                transition={{ duration: 0.8 }}
                className="w-full rounded-[2.5rem] overflow-hidden aspect-[16/9] md:aspect-[21/9] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)]"
             >
-               <img src="https://images.unsplash.com/photo-1527011045974-4b533e5acc14?auto=format&fit=crop&w=1964&q=80" alt="Fotografie Produs E-commerce" className="w-full h-full object-cover" />
+               <img src="https://images.unsplash.com/photo-1548944588-bd022d6b3a9b?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Fotografie Produs E-commerce" className="w-full h-full object-cover" />
             </motion.div>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-right text-[10px] uppercase tracking-[0.2em] text-white/30 font-medium mt-4 px-4 w-full">
+               Sursă foto: Unsplash.com
+            </motion.p>
          </section>
 
          {/* 3. EDITORIAL TEXT (Reading Zone) */}

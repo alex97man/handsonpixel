@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import ImageLightbox from '../../components/ImageLightbox';
 import heroImg from '../../assets/PRODUSE-PERSONALIZABILE/banner.jpg';
 import p1 from '../../assets/PRODUSE-PERSONALIZABILE/personalizabil1.jpg';
 import p2 from '../../assets/PRODUSE-PERSONALIZABILE/personalizabil2.jpg';
@@ -13,13 +14,22 @@ const fadeUpVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
 };
 
+const allImages = [heroImg, p1, p2, p3];
+const allAlts = ['Produse Personalizabile Hero', 'Produs 1', 'Produs 2', 'Produs 3'];
+
 export default function ProdusePersonalizabile() {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: targetRef, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+  const openLightbox = (i) => setLightboxIndex(i);
+  const closeLightbox = () => setLightboxIndex(null);
+  const prevImage = () => setLightboxIndex(i => (i - 1 + allImages.length) % allImages.length);
+  const nextImage = () => setLightboxIndex(i => (i + 1) % allImages.length);
 
   return (
     <div className="w-full relative break-words text-text pb-24">
+      <ImageLightbox images={allImages} alts={allAlts} index={lightboxIndex} onClose={closeLightbox} onPrev={prevImage} onNext={nextImage} />
       {/* 1. HERO SECTION */}
       <section className="pt-40 md:pt-48 pb-16 px-6 md:px-8 max-w-5xl mx-auto relative z-10 w-full">
         <Link to="/portofoliu" className="inline-flex items-center gap-2 text-accent text-sm font-bold tracking-widest uppercase mb-12 hover:text-white transition-colors">
@@ -46,7 +56,8 @@ export default function ProdusePersonalizabile() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="w-full rounded-[2.5rem] overflow-hidden aspect-video border border-white/10 relative"
+          className="w-full rounded-[2.5rem] overflow-hidden aspect-video border border-white/10 relative cursor-zoom-in"
+          onClick={() => openLightbox(0)}
         >
           <motion.img 
              style={{ y, scale: 1.3 }}
@@ -81,14 +92,14 @@ export default function ProdusePersonalizabile() {
       {/* 4. SECONDARY IMAGE / GALLERIES */}
       <section className="px-6 md:px-8 max-w-5xl mx-auto mb-32">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10">
-            <img src={p1} alt="Product detail 1" className="w-full h-full object-cover" />
+          <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} onClick={() => openLightbox(1)} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10 cursor-zoom-in">
+            <img src={p1} alt="Product detail 1" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
           </motion.div>
-          <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10">
-            <img src={p2} alt="Product detail 2" className="w-full h-full object-cover" />
+          <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} onClick={() => openLightbox(2)} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10 cursor-zoom-in">
+            <img src={p2} alt="Product detail 2" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
           </motion.div>
-          <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10">
-            <img src={p3} alt="Product detail 3" className="w-full h-full object-cover" />
+          <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} onClick={() => openLightbox(3)} className="rounded-[2.5rem] overflow-hidden aspect-[2/3] border border-white/10 cursor-zoom-in">
+            <img src={p3} alt="Product detail 3" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
           </motion.div>
         </div>
       </section>

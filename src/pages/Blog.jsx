@@ -13,7 +13,7 @@ const articles = [
     excerpt: "Ai un produs bun. Ai un site funcțional. Ai configurat plata și livrarea. Dar vânzările nu vin. Fotografia este primul filtru și singurul canal de comunicare senzorială. Descoperă impactul direct asupra conversiilor.",
     category: "Fotografie produs",
     date: "29 MARTIE 2026",
-    imageUrl: "https://images.unsplash.com/photo-1527011045974-4b533e5acc14?auto=format&fit=crop&w=2070&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1548944588-bd022d6b3a9b?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     featured: true,
     link: "/blog/fotografie-produs"
   },
@@ -23,7 +23,7 @@ const articles = [
     excerpt: "Indiferent de situație, logo-ul tău comunică ceva — în mod constant, fără să ai control asupra mesajului.",
     category: "Design grafic",
     date: "19 MARTIE 2026",
-    imageUrl: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=2071&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1613909207039-6b173b755cc1?q=80&w=1547&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     link: "/blog/logo-business"
   },
   {
@@ -32,7 +32,7 @@ const articles = [
     excerpt: "Diferențele dintre platformele de e-commerce. Analizăm costurile reale, securitatea și scalabilitatea pentru afaceri serios.",
     category: "E-commerce",
     date: "14 MARTIE 2026",
-    imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=2070&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1658297063569-162817482fb6?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     link: "/blog/shopify-vs-woocommerce"
   }
 ];

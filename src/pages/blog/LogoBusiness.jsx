@@ -43,8 +43,11 @@ export default function LogoBusiness() {
                transition={{ duration: 0.8 }}
                className="w-full rounded-[2.5rem] overflow-hidden aspect-[16/9] md:aspect-[21/9] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)]"
             >
-               <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=2071&q=80" alt="Logo Design Process" className="w-full h-full object-cover" />
+               <img src="https://images.unsplash.com/photo-1613909207039-6b173b755cc1?q=80&w=1547&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Logo Design Process" className="w-full h-full object-cover" />
             </motion.div>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-right text-[10px] uppercase tracking-[0.2em] text-white/30 font-medium mt-4 px-4 w-full">
+               Sursă foto: Unsplash.com
+            </motion.p>
          </section>
 
          {/* 3. EDITORIAL TEXT (Reading Zone) */}

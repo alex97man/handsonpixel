@@ -1,47 +1,40 @@
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 import { X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import vlt2024Hero from '../assets/hero_kv_vlt2024.jpg';
-import vlt2025Hero from '../assets/hero_kv_vlt2025.jpg';
+import vlt2024Hero from '../assets/KV-VLT-2024/hero_kv_vlt2024.jpg';
+import vlt2025Hero from '../assets/KV-VLT-2025/hero_kv_vlt2025.jpg';
 import packshotThumb from '../assets/PACKSHOT/HERO_BANNER_PACKSHOT.jpg';
 import blueThumb from '../assets/BLUE/BLUE2.jpg';
 import experimentalThumb from '../assets/EXPERIMENTAL/banner ulei.jpg';
 import beerstationThumb from '../assets/BEERSTATION.RO/img3.jpg';
 import personalizabileThumb from '../assets/PRODUSE-PERSONALIZABILE/banner.jpg';
 import soulyPhotoThumb from '../assets/SOULYPHOTO/5.jpg';
-import soulyRoThumb from '../assets/souly.ro/banner1.png';
+import soulyRoThumb from '../assets/souly.ro/banner12.png';
+import rebrandingThumb from '../assets/REBRANDING-VLT/banner.jpg';
+import logoSoulyThumb from '../assets/souly-logo/banner.jpg';
+import researchThumb from '../assets/research/Scene11.jpg';
 
 const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</span>;
 
 const projects = [
-  { id: 1, title: 'SOULY.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: soulyRoThumb, link: '/portofoliu/souly-ro' },
-  { id: 2, title: 'PACKSHOT', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: packshotThumb, link: '/portofoliu/packshot' },
-  { id: 3, title: 'BLUE', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: blueThumb, link: '/portofoliu/blue' },
-  { id: 4, title: 'SOULY Photography', category: 'Fotografie / Lifestyle', mainCategory: 'Fotografie', image: soulyPhotoThumb, link: '/portofoliu/souly-photo' },
-  { id: 5, title: 'BEERSTATION.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: beerstationThumb, link: '/portofoliu/beerstation-ro' },
-  { id: 6, title: 'EXPERIMENTAL', category: 'Fotografie de produs / 360', mainCategory: 'Fotografie', image: experimentalThumb, link: '/portofoliu/experimental' },
-  { id: 7, title: 'PRODUSE PERSONALIZABILE', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: personalizabileThumb, link: '/portofoliu/produse-personalizabile' },
-  { id: 8, title: 'RESEARCH REPORT', category: 'Design Grafic', mainCategory: 'Design', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2026&auto=format&fit=crop', link: '/portofoliu/research-report' },
-  { id: 9, title: 'REBRANDING VERDE LA TEATRU', category: 'Design Grafic', mainCategory: 'Design', image: 'https://images.unsplash.com/photo-1543733216-796835de38bb?q=80&w=2070&auto=format&fit=crop', link: '/portofoliu/rebranding-verde-la-teatru' },
-  { id: 10, title: 'KV VERDE LA TEATRU 2024', category: 'Design Grafic', mainCategory: 'Design', image: vlt2024Hero, link: '/portofoliu/kv-verde-la-teatru-2024' },
-  { id: 11, title: 'KV VERDE LA TEATRU 2025', category: 'Design Grafic', mainCategory: 'Design', image: vlt2025Hero, link: '/portofoliu/kv-verde-la-teatru-2025' },
-  { id: 12, title: 'LOGO SOULY', category: 'Design Grafic', mainCategory: 'Design', image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2071&auto=format&fit=crop', link: '/portofoliu/logo-souly' },
+  { id: 1, title: 'PRODUSE PERSONALIZABILE', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: personalizabileThumb, link: '/portofoliu/produse-personalizabile' },
+  { id: 2, title: 'RESEARCH REPORT', category: 'Design Grafic', mainCategory: 'Design', image: researchThumb, link: '/portofoliu/research-report' },
+  { id: 3, title: 'PACKSHOT', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: packshotThumb, link: '/portofoliu/packshot' },
+  { id: 4, title: 'BLUE', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: blueThumb, link: '/portofoliu/blue' },
+  { id: 5, title: 'SOULY.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: soulyRoThumb, link: '/portofoliu/souly-ro' },
+  { id: 6, title: 'SOULY Photography', category: 'Fotografie / Lifestyle', mainCategory: 'Fotografie', image: soulyPhotoThumb, link: '/portofoliu/souly-photo' },
+  { id: 7, title: 'LOGO SOULY', category: 'Design Grafic', mainCategory: 'Design', image: logoSoulyThumb, link: '/portofoliu/logo-souly' },
+  { id: 8, title: 'KV VERDE LA TEATRU 2025', category: 'Design Grafic', mainCategory: 'Design', image: vlt2025Hero, link: '/portofoliu/kv-verde-la-teatru-2025' },
+  { id: 9, title: 'BEERSTATION.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: beerstationThumb, link: '/portofoliu/beerstation-ro' },
+  { id: 10, title: 'EXPERIMENTAL', category: 'Fotografie de produs / 360', mainCategory: 'Fotografie', image: experimentalThumb, link: '/portofoliu/experimental' },
+  { id: 11, title: 'KV VERDE LA TEATRU 2024', category: 'Design Grafic', mainCategory: 'Design', image: vlt2024Hero, link: '/portofoliu/kv-verde-la-teatru-2024' },
+  { id: 12, title: 'REBRANDING VERDE LA TEATRU', category: 'Design Grafic', mainCategory: 'Design', image: rebrandingThumb, link: '/portofoliu/rebranding-verde-la-teatru' },
 ];
 
 const ProjectCard = ({ project }) => {
-  const cardRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "end start"]
-  });
-
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
-
   return (
     <motion.div
-      ref={cardRef}
       layout
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
@@ -54,14 +47,14 @@ const ProjectCard = ({ project }) => {
 
         {/* Background Image - Full Color */}
         <div className="absolute inset-0 z-0">
-          <motion.div style={{ y: imageY, height: "130%" }} className="absolute -top-[15%] left-0 right-0 w-full h-full">
+          <div className="absolute inset-0 w-full h-full">
             <img
               src={project.image}
               alt={project.title}
               loading="lazy"
               className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-[2.5s] ease-out opacity-80 group-hover:opacity-100"
             />
-          </motion.div>
+          </div>
 
           {/* Deep Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent z-10" />

@@ -2,37 +2,37 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import beerstationThumb from '../assets/BEERSTATION.RO/img3.jpg';
-import packshotThumb from '../assets/PACKSHOT/HERO_BANNER_PACKSHOT.jpg';
-import soulyRoThumb from '../assets/souly.ro/banner1.png';
+import rebrandingThumb from '../assets/REBRANDING-VLT/banner.jpg';
+import vlt2024Hero from '../assets/KV-VLT-2024/hero_kv_vlt2024.jpg';
+import experimentalThumb from '../assets/EXPERIMENTAL/banner ulei.jpg';
 
 const featuredProjects = [
   {
     id: 1,
-    title: 'SOULY.RO',
-    category: 'Shopify Ecommerce',
-    preview: 'Revoluționarea experienței de shopping prin minimalism și viteză supremă.',
-    image: soulyRoThumb,
+    title: 'REBRANDING VERDE LA TEATRU',
+    category: 'Design Grafic',
+    preview: 'O nouă identitate vizuală pentru un festival ce îmbină sustenabilitatea cu arta teatrală.',
+    image: rebrandingThumb,
     num: '01',
-    link: '/portofoliu/souly-ro'
+    link: '/portofoliu/rebranding-verde-la-teatru'
   },
   {
     id: 2,
-    title: 'PACKSHOT',
-    category: 'Foto de Produs',
-    preview: 'Perfecțiune tehnică în fiecare reflexie. Imagini care convertesc și dau viață catalogului tău.',
-    image: 'https://handsonpixel.ro/wp-content/uploads/2026/01/STICLA1-scaled.png',
+    title: 'KV VERDE LA TEATRU 2024',
+    category: 'Key Visual / Design',
+    preview: 'Conceptul vizual central pentru ediția 2024 a festivalului Verde la Teatru.',
+    image: vlt2024Hero,
     num: '02',
-    link: '/portofoliu/packshot'
+    link: '/portofoliu/kv-verde-la-teatru-2024'
   },
   {
     id: 3,
-    title: 'BEERSTATION',
-    category: 'Shopify Ecommerce',
-    preview: 'O platformă robustă pentru pasionații de berărie artizanală, axată pe accesibilitate și brand.',
-    image: beerstationThumb,
+    title: 'EXPERIMENTAL',
+    category: 'Foto de Produs / 360',
+    preview: 'Explorări vizuale și experimente de produs captivante care depășesc limitele fotografiei clasice.',
+    image: experimentalThumb,
     num: '03',
-    link: '/portofoliu/beerstation-ro'
+    link: '/portofoliu/experimental'
   }
 ];
 
