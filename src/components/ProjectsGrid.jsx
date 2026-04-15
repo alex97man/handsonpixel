@@ -18,18 +18,18 @@ import researchThumb from '../assets/research/Scene11.jpg';
 const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</span>;
 
 const projects = [
-  { id: 1, title: 'PRODUSE PERSONALIZABILE', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: personalizabileThumb, link: '/portofoliu/produse-personalizabile' },
-  { id: 2, title: 'RESEARCH REPORT', category: 'Design Grafic', mainCategory: 'Design', image: researchThumb, link: '/portofoliu/research-report' },
-  { id: 3, title: 'PACKSHOT', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: packshotThumb, link: '/portofoliu/packshot' },
-  { id: 4, title: 'BLUE', category: 'Fotografie de produs', mainCategory: 'Fotografie', image: blueThumb, link: '/portofoliu/blue' },
-  { id: 5, title: 'SOULY.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: soulyRoThumb, link: '/portofoliu/souly-ro' },
-  { id: 6, title: 'SOULY Photography', category: 'Fotografie / Lifestyle', mainCategory: 'Fotografie', image: soulyPhotoThumb, link: '/portofoliu/souly-photo' },
-  { id: 7, title: 'LOGO SOULY', category: 'Design Grafic', mainCategory: 'Design', image: logoSoulyThumb, link: '/portofoliu/logo-souly' },
-  { id: 8, title: 'KV VERDE LA TEATRU 2025', category: 'Design Grafic', mainCategory: 'Design', image: vlt2025Hero, link: '/portofoliu/kv-verde-la-teatru-2025' },
-  { id: 9, title: 'BEERSTATION.RO', category: 'Shopify Ecommerce', mainCategory: 'Ecommerce', image: beerstationThumb, link: '/portofoliu/beerstation-ro' },
-  { id: 10, title: 'EXPERIMENTAL', category: 'Fotografie de produs / 360', mainCategory: 'Fotografie', image: experimentalThumb, link: '/portofoliu/experimental' },
-  { id: 11, title: 'KV VERDE LA TEATRU 2024', category: 'Design Grafic', mainCategory: 'Design', image: vlt2024Hero, link: '/portofoliu/kv-verde-la-teatru-2024' },
-  { id: 12, title: 'REBRANDING VERDE LA TEATRU', category: 'Design Grafic', mainCategory: 'Design', image: rebrandingThumb, link: '/portofoliu/rebranding-verde-la-teatru' },
+  { id: 1, title: 'PRODUSE PERSONALIZABILE', category: 'Fotografie packshot', mainCategory: 'FOTOGRAFIE', image: personalizabileThumb, link: '/portofoliu/produse-personalizabile' },
+  { id: 2, title: 'RESEARCH REPORT', category: 'Design Raport / Revistă', mainCategory: 'DESIGN', image: researchThumb, link: '/portofoliu/research-report' },
+  { id: 3, title: 'PACKSHOT', category: 'Fotografie packshot & atmospheric', mainCategory: 'FOTOGRAFIE', image: packshotThumb, link: '/portofoliu/packshot' },
+  { id: 4, title: 'BLUE', category: 'Fotografie atmospheric & 360', mainCategory: 'FOTOGRAFIE', image: blueThumb, link: '/portofoliu/blue' },
+  { id: 5, title: 'SOULY.RO', category: 'E-commerce Shopify', mainCategory: 'E-COMMERCE', image: soulyRoThumb, link: '/portofoliu/souly-ro' },
+  { id: 6, title: 'SOULY Photography', category: 'Fotografie packshot & atmospheric', mainCategory: 'FOTOGRAFIE', image: soulyPhotoThumb, link: '/portofoliu/souly-photo' },
+  { id: 7, title: 'LOGO SOULY', category: 'Identitate vizuală', mainCategory: 'DESIGN', image: logoSoulyThumb, link: '/portofoliu/logo-souly' },
+  { id: 8, title: 'KV VERDE LA TEATRU 2025', category: 'Identitate vizuală', mainCategory: 'DESIGN', image: vlt2025Hero, link: '/portofoliu/kv-verde-la-teatru-2025' },
+  { id: 9, title: 'BEERSTATION.RO', category: 'E-commerce Shopify', mainCategory: 'E-COMMERCE', image: beerstationThumb, link: '/portofoliu/beerstation-ro' },
+  { id: 10, title: 'EXPERIMENTAL', category: 'Fotografie atmospheric & 360', mainCategory: 'FOTOGRAFIE', image: experimentalThumb, link: '/portofoliu/experimental' },
+  { id: 11, title: 'KV VERDE LA TEATRU 2024', category: 'Identitate vizuală', mainCategory: 'DESIGN', image: vlt2024Hero, link: '/portofoliu/kv-verde-la-teatru-2024' },
+  { id: 12, title: 'REBRANDING VERDE LA TEATRU', category: 'Identitate vizuală', mainCategory: 'DESIGN', image: rebrandingThumb, link: '/portofoliu/rebranding-verde-la-teatru' },
 ];
 
 const ProjectCard = ({ project }) => {
@@ -45,38 +45,38 @@ const ProjectCard = ({ project }) => {
       <Link to={project.link || '#'} className="block h-full w-full">
         <div className="relative overflow-hidden rounded-[2.5rem] aspect-[4/5] bg-background-secondary border border-white/10 shadow-[0_0_25px_rgba(63,183,188,0.1)] group-hover:shadow-[0_0_40px_rgba(63,183,188,0.2)] transition-all duration-700">
 
-        {/* Background Image - Full Color */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 w-full h-full">
-            <img
-              src={project.image}
-              alt={project.title}
-              loading="lazy"
-              className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-[2.5s] ease-out opacity-80 group-hover:opacity-100"
-            />
+          {/* Background Image - Full Color */}
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 w-full h-full">
+              <img
+                src={project.image}
+                alt={project.title}
+                loading="lazy"
+                className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-[2.5s] ease-out opacity-80 group-hover:opacity-100"
+              />
+            </div>
+
+            {/* Deep Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent z-10" />
           </div>
 
-          {/* Deep Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent z-10" />
+          {/* Project Details - Balanced Sizing */}
+          <div className="relative z-20 p-10 h-full flex flex-col justify-end text-left">
+            <span className="inline-block text-accent font-bold tracking-[0.3em] text-[10px] uppercase mb-3">
+              {project.mainCategory}
+            </span>
+
+            <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-1 leading-tight">
+              {project.title}
+            </h3>
+
+            <p className="text-white/40 text-[11px] font-medium tracking-wide mb-4">
+              {project.category}
+            </p>
+
+            <div className="w-8 h-[2px] bg-accent/50 group-hover:w-16 transition-all duration-500" />
+          </div>
         </div>
-
-        {/* Project Details - Balanced Sizing */}
-        <div className="relative z-20 p-10 h-full flex flex-col justify-end text-left">
-          <span className="inline-block text-accent font-bold tracking-[0.3em] text-[10px] uppercase mb-3">
-            {project.mainCategory}
-          </span>
-
-          <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-1 leading-tight">
-            {project.title}
-          </h3>
-
-          <p className="text-white/40 text-[11px] font-medium tracking-wide mb-4">
-            {project.category}
-          </p>
-
-          <div className="w-8 h-[2px] bg-accent/50 group-hover:w-16 transition-all duration-500" />
-        </div>
-      </div>
       </Link>
     </motion.div>
   );
@@ -85,7 +85,7 @@ const ProjectCard = ({ project }) => {
 export default function ProjectsGrid() {
   const [activeFilter, setActiveFilter] = useState(null);
 
-  const categories = ['Ecommerce', 'Fotografie', 'Design'];
+  const categories = ['E-COMMERCE', 'FOTOGRAFIE', 'DESIGN'];
 
   const filteredProjects = activeFilter
     ? projects.filter(p => p.mainCategory === activeFilter)

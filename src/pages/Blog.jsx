@@ -130,11 +130,11 @@ export default function Blog() {
                 <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end">
 
                   {/* Meta (Top tags - positioned absolutely at the top rather than flex flow to keep text anchored bottom) */}
-                  <div className="absolute top-8 left-8 md:top-12 md:left-12 flex items-center gap-4">
+                  <div className="absolute top-8 left-8 md:top-12 md:left-12 flex flex-col items-start gap-2">
                     <span className="inline-block px-4 py-1.5 rounded-full border border-accent/20 bg-accent/5 text-accent text-xs font-bold uppercase tracking-widest backdrop-blur-md">
                       {article.category}
                     </span>
-                    <span className="text-white/40 text-xs font-bold uppercase tracking-widest">
+                    <span className="text-white/40 text-[10px] font-bold uppercase tracking-widest pl-1">
                       {article.date}
                     </span>
                   </div>
