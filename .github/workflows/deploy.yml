@@ -27,6 +27,10 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_GA_ID: ${{ secrets.VITE_GA_ID }}
+          VITE_META_PIXEL_ID: ${{ secrets.VITE_META_PIXEL_ID }}
+          VITE_CLARITY_ID: ${{ secrets.VITE_CLARITY_ID }}
+          VITE_GSC_VERIFICATION: ${{ secrets.VITE_GSC_VERIFICATION }}
         run: npm run build
 
       - name: 🚀 Deploy via FTP
