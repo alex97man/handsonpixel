@@ -101,6 +101,12 @@ export default function Contact() {
         }]);
 
       if (error) throw error;
+
+      // Trigger Email Notification
+      await supabase.functions.invoke('contact-notification', {
+        body: formData
+      });
+
       setStatus('success');
     } catch (err) {
       console.error('Error submitting form:', err);
