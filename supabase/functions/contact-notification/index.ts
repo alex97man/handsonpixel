@@ -25,7 +25,7 @@ serve(async (req) => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Hands On Pixel <onboarding@resend.dev>", // Replace with verified domain later if needed
+        from: "Hands On Pixel <salut@handsonpixel.ro>",
         to: ["salut@handsonpixel.ro"],
         subject: `Lead Nou: ${brand || name}`,
         html: `
