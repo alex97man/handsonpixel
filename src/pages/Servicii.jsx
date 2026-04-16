@@ -161,6 +161,54 @@ const fadeUpVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
 };
 
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Servicii Design Graphic & E-commerce Shopify",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Hands On Pixel",
+    "url": "https://handsonpixel.ro"
+  },
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Shopify Start",
+      "price": "900.00",
+      "priceCurrency": "EUR",
+      "description": "Magazin Shopify complet — temă, configurare, pagini esențiale."
+    },
+    {
+      "@type": "Offer",
+      "name": "Shopify Plus",
+      "price": "1300.00",
+      "priceCurrency": "EUR",
+      "description": "Magazin Shopify cu integrări logistică (xConnector), chat și recenzii."
+    },
+    {
+      "@type": "Offer",
+      "name": "Shopify Pro",
+      "price": "1800.00",
+      "priceCurrency": "EUR",
+      "description": "Soluție completă Shopify cu Google/Meta Ads și secțiuni custom."
+    },
+    {
+      "@type": "Offer",
+      "name": "Logo Design",
+      "price": "150.00",
+      "priceCurrency": "EUR",
+      "description": "Design de logo profesional — 2 variante concept, 3 revizii."
+    },
+    {
+      "@type": "Offer",
+      "name": "Fotografie Packshot",
+      "price": "15.00",
+      "priceCurrency": "EUR",
+      "description": "Fotografie de produs pe fundal alb pentru e-commerce (per produs)."
+    }
+  ]
+};
+
 export default function Servicii() {
   const [activeId, setActiveId] = useState(null);
 
@@ -174,6 +222,7 @@ export default function Servicii() {
       <SEO 
         title="Servicii Design & Shopify"
         description="Soluții e-commerce Shopify, Design Grafic și Fotografie de produs. Vezi pachetele noastre de prețuri pentru Shopify Start, Plus și Pro."
+        schema={servicesSchema}
       />
 
       {/* 1. HERO SECTION */}
