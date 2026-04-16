@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO';
 import ImageLightbox from '../../components/ImageLightbox';
 import heroImg from '../../assets/souly.ro/banner1.png';
 import secondaryImg1 from '../../assets/souly.ro/img1.jpg';
@@ -27,6 +28,10 @@ export default function SoulyRo() {
 
   return (
     <div className="w-full relative break-words text-text pb-24">
+      <SEO 
+        title="Souly.ro | Magento to Shopify Migration"
+        description="Migrare completă către Shopify, design personalizat și integrări de print-on-demand pentru un brand de cadouri unice."
+      />
       <ImageLightbox images={allImages} alts={allAlts} index={lightboxIndex} onClose={closeLightbox} onPrev={prevImage} onNext={nextImage} />
       {/* 1. HERO SECTION */}
       <section className="pt-40 md:pt-48 pb-16 px-6 md:px-8 max-w-5xl mx-auto relative z-10 w-full">

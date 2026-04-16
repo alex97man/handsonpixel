@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO';
 import ImageLightbox from '../../components/ImageLightbox';
 import souly5 from '../../assets/SOULYPHOTO/5.jpg';
 import souly7 from '../../assets/SOULYPHOTO/7.jpg';
@@ -28,6 +29,10 @@ export default function SoulyPhoto() {
 
   return (
     <div className="w-full relative break-words text-text pb-24">
+      <SEO 
+        title="Souly Photography"
+        description="Fotografie de produs profesională pentru e-commerce - packshot și editorial pentru branduri de cadouri."
+      />
       <ImageLightbox images={allImages} alts={allAlts} index={lightboxIndex} onClose={closeLightbox} onPrev={prevImage} onNext={nextImage} />
       {/* 1. HERO SECTION */}
       <section className="pt-40 md:pt-48 pb-16 px-6 md:px-8 max-w-5xl mx-auto relative z-10 w-full">

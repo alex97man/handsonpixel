@@ -1,6 +1,7 @@
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { useRef } from 'react';
 import { Focus, TrendingUp, MessageSquare } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</span>;
 
@@ -68,7 +69,10 @@ export default function Despre() {
 
   return (
     <div className="w-full relative">
-
+      <SEO 
+        title="Despre Noi"
+        description="Povestea Hands On Pixel - Cine suntem, ce am învățat în 5 ani de activitate și de ce punem logica mai presus de estetică în design."
+      />
       {/* 1. HERO SECTION */}
       <section className="pt-40 md:pt-56 pb-24 px-6 md:px-8 max-w-5xl mx-auto relative z-10">
         <motion.div

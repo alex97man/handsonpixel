@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO';
 import ImageLightbox from '../../components/ImageLightbox';
 import heroImg from '../../assets/BLUE/HERO_BANNER_BLUE.jpg';
 import blue1 from '../../assets/BLUE/BLUE1.jpg';
@@ -28,6 +29,10 @@ export default function Blue() {
 
   return (
     <div className="w-full relative break-words text-text pb-24">
+      <SEO 
+        title="Blue | Fotografie Editorială Apă"
+        description="Studiu vizual de produs: Fotografie editorială și experiență 360° pentru o sticlă de apă, pe fundal negru dramatic."
+      />
       <ImageLightbox images={allImages} alts={allAlts} index={lightboxIndex} onClose={closeLightbox} onPrev={prevImage} onNext={nextImage} />
       {/* 1. HERO SECTION */}
       <section className="pt-40 md:pt-48 pb-16 px-6 md:px-8 max-w-5xl mx-auto relative z-10 w-full">

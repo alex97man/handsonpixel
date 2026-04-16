@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO';
 import ImageLightbox from '../../components/ImageLightbox';
 import heroImg from '../../assets/souly-logo/banner.jpg';
 import img1 from '../../assets/souly-logo/img1.jpg';
@@ -27,6 +28,10 @@ export default function LogoSouly() {
 
   return (
     <div className="w-full relative break-words text-text pb-24">
+      <SEO 
+        title="Logo Souly | Identitate Vizuală"
+        description="Identitate vizuală completă pentru brandul Souly: Logo design, paletă de culori și tipografie adaptate pentru e-commerce."
+      />
       <ImageLightbox images={allImages} alts={allAlts} index={lightboxIndex} onClose={closeLightbox} onPrev={prevImage} onNext={nextImage} />
 
       {/* 1. HERO SECTION */}

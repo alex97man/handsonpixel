@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://handsonpixel.com/</loc>
-    <lastmod>2024-04-16</lastmod>
+    <loc>https://handsonpixel.ro/</loc>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://handsonpixel.com/despre</loc>
-    <lastmod>2024-04-16</lastmod>
+    <loc>https://handsonpixel.ro/despre</loc>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://handsonpixel.com/servicii</loc>
-    <lastmod>2024-04-16</lastmod>
+    <loc>https://handsonpixel.ro/servicii</loc>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://handsonpixel.com/portofoliu</loc>
-    <lastmod>2024-04-16</lastmod>
+    <loc>https://handsonpixel.ro/portofoliu</loc>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://handsonpixel.com/blog</loc>
-    <lastmod>2024-04-16</lastmod>
+    <loc>https://handsonpixel.ro/blog</loc>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://handsonpixel.com/contact</loc>
-    <lastmod>2024-04-16</lastmod>
+    <loc>https://handsonpixel.ro/contact</loc>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <!-- Portofoliu Projects -->
-  <url><loc>https://handsonpixel.com/portofoliu/souly-ro</loc></url>
-  <url><loc>https://handsonpixel.com/portofoliu/beerstation-ro</loc></url>
-  <url><loc>https://handsonpixel.com/portofoliu/packshot</loc></url>
-  <url><loc>https://handsonpixel.com/portofoliu/experimental</loc></url>
-  <url><loc>https://handsonpixel.com/portofoliu/blue</loc></url>
-  <url><loc>https://handsonpixel.com/portofoliu/souly-photo</loc></url>
-  <url><loc>https://handsonpixel.com/portofoliu/produse-personalizabile</loc></url>
-  <url><loc>https://handsonpixel.com/portofoliu/research-report</loc></url>
-  <url><loc>https://handsonpixel.com/portofoliu/rebranding-verde-la-teatru</loc></url>
-  <url><loc>https://handsonpixel.com/portofoliu/kv-verde-la-teatru-2024</loc></url>
-  <url><loc>https://handsonpixel.com/portofoliu/kv-verde-la-teatru-2025</loc></url>
-  <url><loc>https://handsonpixel.com/portofoliu/logo-souly</loc></url>
+  <url><loc>https://handsonpixel.ro/portofoliu/souly-ro</loc></url>
+  <url><loc>https://handsonpixel.ro/portofoliu/beerstation-ro</loc></url>
+  <url><loc>https://handsonpixel.ro/portofoliu/packshot</loc></url>
+  <url><loc>https://handsonpixel.ro/portofoliu/experimental</loc></url>
+  <url><loc>https://handsonpixel.ro/portofoliu/blue</loc></url>
+  <url><loc>https://handsonpixel.ro/portofoliu/souly-photo</loc></url>
+  <url><loc>https://handsonpixel.ro/portofoliu/produse-personalizabile</loc></url>
+  <url><loc>https://handsonpixel.ro/portofoliu/research-report</loc></url>
+  <url><loc>https://handsonpixel.ro/portofoliu/rebranding-verde-la-teatru</loc></url>
+  <url><loc>https://handsonpixel.ro/portofoliu/kv-verde-la-teatru-2024</loc></url>
+  <url><loc>https://handsonpixel.ro/portofoliu/kv-verde-la-teatru-2025</loc></url>
+  <url><loc>https://handsonpixel.ro/portofoliu/logo-souly</loc></url>
   <!-- Blog Posts -->
-  <url><loc>https://handsonpixel.com/blog/fotografie-produs</loc></url>
-  <url><loc>https://handsonpixel.com/blog/logo-business</loc></url>
-  <url><loc>https://handsonpixel.com/blog/shopify-vs-woocommerce</loc></url>
+  <url><loc>https://handsonpixel.ro/blog/fotografie-produs</loc></url>
+  <url><loc>https://handsonpixel.ro/blog/logo-business</loc></url>
+  <url><loc>https://handsonpixel.ro/blog/shopify-vs-woocommerce</loc></url>
 </urlset>

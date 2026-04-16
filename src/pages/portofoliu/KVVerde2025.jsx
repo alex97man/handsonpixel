@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO';
 import ImageLightbox from '../../components/ImageLightbox';
 import heroImg from '../../assets/KV-VLT-2025/hero_kv_vlt2025.jpg';
 import secondaryImg from '../../assets/KV-VLT-2025/img1_kv_vlt2025.jpg';
@@ -28,6 +29,10 @@ export default function KVVerde2025() {
 
   return (
     <div className="w-full relative break-words text-text pb-24">
+      <SEO 
+        title="Key Visual Verde la Teatru 2025"
+        description="Identitate vizuală și materiale promoționale pentru ediția a 7-a a festivalului Verde la Teatru. Design grafic premium pentru evenimente."
+      />
       <ImageLightbox images={allImages} alts={allAlts} index={lightboxIndex} onClose={closeLightbox} onPrev={prevImage} onNext={nextImage} />
       {/* 1. HERO SECTION */}
       <section className="pt-40 md:pt-48 pb-16 px-6 md:px-8 max-w-5xl mx-auto relative z-10 w-full">

@@ -11,6 +11,7 @@ import {
   Send
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import SEO from '../components/SEO';
 
 const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</span>;
 
@@ -345,7 +346,10 @@ export default function Contact() {
 
   return (
     <div className="w-full min-h-screen relative overflow-hidden flex flex-col pt-40 md:pt-48 pb-32">
-      
+      <SEO 
+        title="Contact"
+        description="Ești gata să îți ridici brandul la următorul nivel? Contactează Hands On Pixel pentru o ofertă personalizată de Shopify, Design sau Fotografie."
+      />
       {/* Background Orbs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px] pointer-events-none" />

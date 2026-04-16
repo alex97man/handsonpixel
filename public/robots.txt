@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://handsonpixel.com/sitemap.xml
+Sitemap: https://handsonpixel.ro/sitemap.xml

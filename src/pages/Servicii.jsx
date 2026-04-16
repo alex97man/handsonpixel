@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, PenTool, Camera, Check, ArrowRight, Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</span>;
 
@@ -170,6 +171,10 @@ export default function Servicii() {
 
   return (
     <div className="w-full relative break-words text-text">
+      <SEO 
+        title="Servicii Design & Shopify"
+        description="Soluții e-commerce Shopify, Design Grafic și Fotografie de produs. Vezi pachetele noastre de prețuri pentru Shopify Start, Plus și Pro."
+      />
 
       {/* 1. HERO SECTION */}
       <section className="pt-40 md:pt-48 pb-16 px-6 md:px-8 max-w-5xl mx-auto relative z-10 w-full">

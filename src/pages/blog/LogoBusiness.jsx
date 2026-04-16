@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO';
 
 const fadeUpVariants = {
    hidden: { opacity: 0, y: 40 },
@@ -10,6 +11,11 @@ const fadeUpVariants = {
 export default function LogoBusiness() {
    return (
       <div className="w-full relative break-words text-text pb-24 min-h-screen">
+         <SEO 
+            title="Ce spune logo-ul tău despre afacere"
+            description="Logo-ul este prima interfață vizuală între tine și client. Află cum identitatea vizuală corectă comunică valorile brandului tău fără cuvinte."
+            ogType="article"
+         />
          {/* 1. EDITORIAL HERO SECTION */}
          <section className="pt-40 md:pt-48 pb-16 px-6 md:px-8 max-w-5xl mx-auto relative z-10 w-full text-left">
             <Link to="/blog" className="inline-flex items-center gap-2 text-accent text-sm font-bold tracking-widest uppercase mb-12 hover:text-white transition-colors">

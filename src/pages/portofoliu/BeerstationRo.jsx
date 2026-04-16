@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO';
 import ImageLightbox from '../../components/ImageLightbox';
 import heroImg from '../../assets/BEERSTATION.RO/banner-hero-beerstation.ro.jpg';
 import img1 from '../../assets/BEERSTATION.RO/img1.jpg';
@@ -28,6 +29,10 @@ export default function BeerstationRo() {
 
   return (
     <div className="w-full relative break-words text-text pb-24">
+      <SEO 
+        title="Beerstation.ro | Shopify Craft Beer Store"
+        description="Magazin online de bere craft construit pe Shopify, cu popup custom de verificare vârstă și integrare taxă SGR."
+      />
       <ImageLightbox images={allImages} alts={allAlts} index={lightboxIndex} onClose={closeLightbox} onPrev={prevImage} onNext={nextImage} />
       {/* 1. HERO SECTION */}
       <section className="pt-40 md:pt-48 pb-16 px-6 md:px-8 max-w-5xl mx-auto relative z-10 w-full">

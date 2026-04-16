@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO';
 import ImageLightbox from '../../components/ImageLightbox';
 import heroImg from '../../assets/EXPERIMENTAL/banner ulei.jpg';
 import ulei1 from '../../assets/EXPERIMENTAL/ulei1.png';
@@ -28,6 +29,10 @@ export default function Experimental() {
 
   return (
     <div className="w-full relative break-words text-text pb-24">
+      <SEO 
+        title="Experimental | Product Photography Study"
+        description="Explorare vizuală pe produse cosmetice: Fotografie editorială și 360° cu focalizare pe lumini și atmosferă premium."
+      />
       <ImageLightbox images={allImages} alts={allAlts} index={lightboxIndex} onClose={closeLightbox} onPrev={prevImage} onNext={nextImage} />
       {/* 1. HERO SECTION */}
       <section className="pt-40 md:pt-48 pb-16 px-6 md:px-8 max-w-5xl mx-auto relative z-10 w-full">

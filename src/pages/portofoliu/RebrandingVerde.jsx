@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO';
 import ImageLightbox from '../../components/ImageLightbox';
 import heroImg from '../../assets/REBRANDING-VLT/banner.jpg';
 import logoRevealGif from '../../assets/REBRANDING-VLT/logo_reveal_2.gif';
@@ -29,6 +30,10 @@ export default function RebrandingVerde() {
 
   return (
     <div className="w-full relative break-words text-text pb-24">
+      <SEO 
+        title="Rebranding Verde la Teatru | Logo Design"
+        description="Redesign complet de identitate vizuală pentru festivalul național Verde la Teatru. Modernizare logo și sistem vizual."
+      />
       <ImageLightbox images={allImages} alts={allAlts} index={lightboxIndex} onClose={closeLightbox} onPrev={prevImage} onNext={nextImage} />
 
       {/* 1. HERO SECTION */}

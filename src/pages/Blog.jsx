@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</span>;
 
@@ -49,6 +50,10 @@ export default function Blog() {
 
   return (
     <div className="w-full relative break-words text-text min-h-screen">
+      <SEO 
+        title="Blog & Perspective"
+        description="Articole practice despre Shopify, e-commerce, fotografie de produs și design grafic. Îndrumare pentru antreprenori de la Hands On Pixel."
+      />
 
       {/* 1. EDITORIAL HERO SECTION */}
       <section className="pt-40 md:pt-48 pb-16 px-6 md:px-8 max-w-5xl mx-auto relative z-10 w-full">
