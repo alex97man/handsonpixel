@@ -103,9 +103,15 @@ export default function Contact() {
       if (error) throw error;
 
       // Trigger Email Notification
-      await supabase.functions.invoke('contact-notification', {
+      const { data: funcData, error: funcError } = await supabase.functions.invoke('contact-notification', {
         body: formData
       });
+
+      if (funcError) {
+        console.error('Email function error:', funcError);
+      } else {
+        console.log('Email function response:', funcData);
+      }
 
       setStatus('success');
     } catch (err) {
