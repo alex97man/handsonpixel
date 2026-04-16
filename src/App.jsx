@@ -26,9 +26,14 @@ import FotografieProdus from './pages/blog/FotografieProdus';
 import LogoBusiness from './pages/blog/LogoBusiness';
 import ShopifyVsWooCommerce from './pages/blog/ShopifyVsWooCommerce';
 
+// Infrastructure
+import Analytics from './components/Analytics';
+import CookieConsent from './components/CookieConsent';
+
 function App() {
   return (
     <BrowserRouter>
+      <Analytics />
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
@@ -59,6 +64,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
+      <CookieConsent />
     </BrowserRouter>
   );
 }
