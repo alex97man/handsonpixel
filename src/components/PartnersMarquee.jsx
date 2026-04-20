@@ -1,10 +1,24 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-
+import Logo01 from '../assets/logos/logo-01.png';
+import Logo02 from '../assets/logos/logo-02.png';
+import Logo03 from '../assets/logos/logo-03.png';
+import Logo04 from '../assets/logos/logo-04.png';
+import Logo05 from '../assets/logos/logo-05.png';
+import Logo06 from '../assets/logos/logo-06.png';
+import Logo07 from '../assets/logos/logo-07.png';
+import Logo08 from '../assets/logos/logo-08.png';
 
 const partners = [
-  "Shopify Plus", "Framer", "React", "Next.js", "Adobe CC", "Meta", "Google Ads", "Tailwind"
+  { id: 1, logo: Logo01, name: "Partner 1" },
+  { id: 2, logo: Logo02, name: "Partner 2" },
+  { id: 3, logo: Logo03, name: "Partner 3" },
+  { id: 4, logo: Logo04, name: "Partner 4" },
+  { id: 5, logo: Logo05, name: "Partner 5" },
+  { id: 6, logo: Logo06, name: "Partner 6" },
+  { id: 7, logo: Logo07, name: "Partner 7" },
+  { id: 8, logo: Logo08, name: "Partner 8" },
 ];
 
 export default function PartnersGrid() {
@@ -25,7 +39,7 @@ export default function PartnersGrid() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {partners.map((partner, index) => (
             <motion.div
-              key={index}
+              key={partner.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -48,13 +62,13 @@ export default function PartnersGrid() {
                   y: -12,
                   transition: { duration: 0.3 }
                 }}
-                className="h-32 md:h-40 flex items-center justify-center p-6 bg-background-secondary border border-white/5 rounded-3xl group-hover:border-accent/30 transition-colors duration-500 shadow-xl"
+                className="h-32 md:h-40 flex items-center justify-center p-8 bg-background-secondary border border-white/5 rounded-3xl group-hover:border-accent/30 transition-colors duration-500 shadow-xl overflow-hidden"
               >
-                {/* Logo Text / Placeholder */}
-                <span className="text-lg md:text-xl font-bold uppercase text-white/20 group-hover:text-text transition-colors duration-500 tracking-tighter">
-                  {partner}
-                </span>
-
+                <img 
+                  src={partner.logo} 
+                  alt={partner.name}
+                  className="max-h-full max-w-full object-contain filter grayscale brightness-200 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-500 opacity-40 group-hover:opacity-100"
+                />
               </motion.div>
             </motion.div>
           ))}
