@@ -89,8 +89,8 @@ export default function GalaMMA() {
       </section>
 
       {/* 4. SECONDARY IMAGE / GALLERIES */}
-      <section className="px-6 md:px-8 max-w-5xl mx-auto mb-32 grid grid-cols-1 gap-8">
-        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} onClick={() => openLightbox(1)} className="rounded-[2.5rem] overflow-hidden aspect-video border border-white/10 cursor-zoom-in">
+      <section className="px-6 md:px-8 max-w-5xl mx-auto mb-32 flex justify-center">
+        <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 40 }} viewport={{ once: true }} onClick={() => openLightbox(1)} className="rounded-[2.5rem] overflow-hidden aspect-[4/5] border border-white/10 cursor-zoom-in max-w-2xl w-full">
           <img src={secondaryImg1} alt="Gala MMA Detail" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
         </motion.div>
       </section>
