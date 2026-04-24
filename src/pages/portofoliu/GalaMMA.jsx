@@ -4,8 +4,9 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import ImageLightbox from '../../components/ImageLightbox';
-import heroImg from '../../assets/mma/BANNERHEROMMA.jpg';
-import secondaryImg1 from '../../assets/mma/01 A4 Poster Mockup On Concrete.jpg';
+import heroImg from '../../assets/MMA/BANNERHEROMMA.jpg';
+import secondaryImg1 from '../../assets/MMA/01 A4 Poster Mockup On Concrete.jpg';
+
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 40 },

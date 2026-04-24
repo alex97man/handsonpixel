@@ -14,7 +14,7 @@ import soulyRoThumb from '../assets/souly.ro/banner12.png';
 import rebrandingThumb from '../assets/REBRANDING-VLT/banner.jpg';
 import logoSoulyThumb from '../assets/souly-logo/banner.jpg';
 import researchThumb from '../assets/research/Scene11.jpg';
-import mmaThumb from '../assets/mma/BANNERHEROMMA.jpg';
+import mmaThumb from '../assets/MMA/BANNERHEROMMA.jpg';
 
 
 const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</span>;
