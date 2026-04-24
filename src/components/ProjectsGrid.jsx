@@ -14,6 +14,8 @@ import soulyRoThumb from '../assets/souly.ro/banner12.png';
 import rebrandingThumb from '../assets/REBRANDING-VLT/banner.jpg';
 import logoSoulyThumb from '../assets/souly-logo/banner.jpg';
 import researchThumb from '../assets/research/Scene11.jpg';
+import mmaThumb from '../assets/mma/BANNERHEROMMA.jpg';
+
 
 const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</span>;
 
@@ -30,6 +32,8 @@ const projects = [
   { id: 10, title: 'EXPERIMENTAL', category: 'Fotografie atmospheric & 360', mainCategory: 'FOTOGRAFIE', image: experimentalThumb, link: '/portofoliu/experimental' },
   { id: 11, title: 'KV VERDE LA TEATRU 2024', category: 'Identitate vizuală', mainCategory: 'DESIGN', image: vlt2024Hero, link: '/portofoliu/kv-verde-la-teatru-2024' },
   { id: 12, title: 'REBRANDING VERDE LA TEATRU', category: 'Identitate vizuală', mainCategory: 'DESIGN', image: rebrandingThumb, link: '/portofoliu/rebranding-verde-la-teatru' },
+  { id: 13, title: 'KV - GALA MMA', category: 'Identitate vizuală', mainCategory: 'DESIGN', image: mmaThumb, link: '/portofoliu/kv-gala-mma' },
+
 ];
 
 const ProjectCard = ({ project }) => {

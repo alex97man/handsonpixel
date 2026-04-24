@@ -21,6 +21,8 @@ import RebrandingVerde from './pages/portofoliu/RebrandingVerde';
 import KVVerde2024 from './pages/portofoliu/KVVerde2024';
 import KVVerde2025 from './pages/portofoliu/KVVerde2025';
 import LogoSouly from './pages/portofoliu/LogoSouly';
+import GalaMMA from './pages/portofoliu/GalaMMA';
+
 
 import FotografieProdus from './pages/blog/FotografieProdus';
 import LogoBusiness from './pages/blog/LogoBusiness';
@@ -53,6 +55,8 @@ function App() {
           <Route path="portofoliu/kv-verde-la-teatru-2024" element={<KVVerde2024 />} />
           <Route path="portofoliu/kv-verde-la-teatru-2025" element={<KVVerde2025 />} />
           <Route path="portofoliu/logo-souly" element={<LogoSouly />} />
+          <Route path="portofoliu/kv-gala-mma" element={<GalaMMA />} />
+
 
           <Route path="blog" element={<Blog />} />
           <Route path="blog/fotografie-produs" element={<FotografieProdus />} />
