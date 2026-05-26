@@ -15,7 +15,7 @@ import rebrandingThumb from '../assets/REBRANDING-VLT/banner.jpg';
 import logoSoulyThumb from '../assets/souly-logo/banner.jpg';
 import researchThumb from '../assets/research/Scene11.jpg';
 import mmaThumb from '../assets/MMA/01 A4 Poster Mockup On Concrete.jpg';
-import pizzeriaThumb from '../assets/pizzeriaoro.ro/banner.jpg'; // ADDED PIZZERIA ORO THUMBNAIL
+import pizzeriaThumb from '../assets/PIZZERIAORO.RO/banner.jpg'; // ADDED PIZZERIA ORO THUMBNAIL
 
 
 

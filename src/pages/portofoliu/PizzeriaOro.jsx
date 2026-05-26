@@ -6,9 +6,9 @@ import SEO from '../../components/SEO';
 import ImageLightbox from '../../components/ImageLightbox';
 
 // Adjust these filenames/extensions if your images are named differently (.png, .webp, etc.)
-import heroImg from '../../assets/pizzeriaoro.ro/banner.jpg';
-import secondaryImg1 from '../../assets/pizzeriaoro.ro/img1.jpg';
-import secondaryImg2 from '../../assets/pizzeriaoro.ro/img2.jpg';
+import heroImg from '../../assets/PIZZERIAORO.RO/banner.jpg';
+import secondaryImg1 from '../../assets/PIZZERIAORO.RO/img1.jpg';
+import secondaryImg2 from '../../assets/PIZZERIAORO.RO/img2.jpg';
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 40 },
