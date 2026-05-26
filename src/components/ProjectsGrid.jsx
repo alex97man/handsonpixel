@@ -15,12 +15,14 @@ import rebrandingThumb from '../assets/REBRANDING-VLT/banner.jpg';
 import logoSoulyThumb from '../assets/souly-logo/banner.jpg';
 import researchThumb from '../assets/research/Scene11.jpg';
 import mmaThumb from '../assets/MMA/01 A4 Poster Mockup On Concrete.jpg';
+import pizzeriaThumb from '../assets/pizzeriaoro.ro/banner.jpg'; // ADDED PIZZERIA ORO THUMBNAIL
 
 
 
 const BlueDot = () => <span className="text-accent font-['Russo_One'] ml-1">.</span>;
 
 const projects = [
+  { id: 14, title: 'PIZZERIAORO.RO', category: 'Website Wordpress', mainCategory: 'WEBSITE', image: pizzeriaThumb, link: '/portofoliu/pizzeriaoro' },
   { id: 13, title: 'KV - GALA MMA', category: 'Identitate vizuală', mainCategory: 'DESIGN', image: mmaThumb, link: '/portofoliu/kv-gala-mma' },
   { id: 1, title: 'PRODUSE PERSONALIZABILE', category: 'Fotografie packshot', mainCategory: 'FOTOGRAFIE', image: personalizabileThumb, link: '/portofoliu/produse-personalizabile' },
   { id: 2, title: 'RESEARCH REPORT', category: 'Design Raport / Revistă', mainCategory: 'DESIGN', image: researchThumb, link: '/portofoliu/research-report' },
@@ -90,7 +92,7 @@ const ProjectCard = ({ project }) => {
 export default function ProjectsGrid() {
   const [activeFilter, setActiveFilter] = useState(null);
 
-  const categories = ['E-COMMERCE', 'FOTOGRAFIE', 'DESIGN'];
+  const categories = ['E-COMMERCE', 'FOTOGRAFIE', 'DESIGN', 'WEBSITE'];
 
   const filteredProjects = activeFilter
     ? projects.filter(p => p.mainCategory === activeFilter)
