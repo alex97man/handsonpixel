@@ -117,7 +117,7 @@ export default function Contact() {
       setStatus('success');
     } catch (err) {
       console.error('Error submitting form:', err);
-      alert('A apărut o eroare la trimiterea mesajului. Te rugăm să încerci din nou.');
+      alert(`A apărut o eroare la trimiterea mesajului: ${err.message || err.toString()}`);
       setStatus('idle');
     }
   };
