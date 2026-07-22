@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles, Send, BrainCircuit, RefreshCw, AlertCircle, HelpCircle, Key, ExternalLink } from 'lucide-react';
 
-export default function AiAdvisorTab({ entries, accessKeyHash }) {
-  const [advice, setAdvice] = useState(null);
+export default function AiAdvisorTab({ entries, accessKeyHash, currentMonth }) {
+  const adviceStorageKey = `moneytracker_ai_advice_${currentMonth || 'default'}`;
+  const chatStorageKey = `moneytracker_ai_chat_${currentMonth || 'default'}`;
+
+  const [advice, setAdvice] = useState(() => localStorage.getItem(adviceStorageKey) || null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [geminiKey, setGeminiKey] = useState(() => localStorage.getItem('moneytracker_gemini_key') || '');
@@ -11,8 +14,44 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
 
   // Custom chat states
   const [customQuestion, setCustomQuestion] = useState('');
-  const [chatLog, setChatLog] = useState([]);
+  const [chatLog, setChatLog] = useState(() => {
+    try {
+      const saved = localStorage.getItem(chatStorageKey);
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [chatLoading, setChatLoading] = useState(false);
+
+  // Sync state when currentMonth changes
+  useEffect(() => {
+    const savedAdvice = localStorage.getItem(adviceStorageKey);
+    setAdvice(savedAdvice || null);
+    try {
+      const savedChat = localStorage.getItem(chatStorageKey);
+      setChatLog(savedChat ? JSON.parse(savedChat) : []);
+    } catch {
+      setChatLog([]);
+    }
+  }, [currentMonth]);
+
+  const saveAdvice = (newAdvice) => {
+    setAdvice(newAdvice);
+    if (newAdvice) {
+      localStorage.setItem(adviceStorageKey, newAdvice);
+    } else {
+      localStorage.removeItem(adviceStorageKey);
+    }
+  };
+
+  const saveChatLog = (action) => {
+    setChatLog(prev => {
+      const next = typeof action === 'function' ? action(prev) : action;
+      localStorage.setItem(chatStorageKey, JSON.stringify(next));
+      return next;
+    });
+  };
 
   // Calculate snapshot data from entries
   const incomeEntries = entries.filter(e => e.type === 'income');
@@ -178,7 +217,7 @@ Răspunde concis și practic în limba română.`;
 
       if (response.ok) {
         const data = await response.json();
-        setAdvice(data.advice);
+        saveAdvice(data.advice);
         setLoading(false);
         return;
       }
@@ -192,7 +231,7 @@ Răspunde concis și practic în limba română.`;
       try {
         const prompt = buildGeneralPrompt();
         const text = await callGeminiDirectly(activeKey, prompt);
-        setAdvice(text);
+        saveAdvice(text);
       } catch (gemErr) {
         console.error(gemErr);
         setError(gemErr.message || 'Eroare la apelarea Gemini API.');
@@ -220,7 +259,7 @@ Răspunde concis și practic în limba română.`;
 
     const userMsg = customQuestion.trim();
     setCustomQuestion('');
-    setChatLog(prev => [...prev, { sender: 'user', text: userMsg }]);
+    saveChatLog(prev => [...prev, { sender: 'user', text: userMsg }]);
     setChatLoading(true);
 
     // 1. Try Supabase Edge Function first
@@ -248,7 +287,7 @@ Răspunde concis și practic în limba română.`;
 
       if (response.ok) {
         const data = await response.json();
-        setChatLog(prev => [...prev, { sender: 'ai', text: data.reply }]);
+        saveChatLog(prev => [...prev, { sender: 'ai', text: data.reply }]);
         setChatLoading(false);
         return;
       }
@@ -262,10 +301,10 @@ Răspunde concis și practic în limba română.`;
       try {
         const prompt = buildQuestionPrompt(userMsg);
         const replyText = await callGeminiDirectly(activeKey, prompt);
-        setChatLog(prev => [...prev, { sender: 'ai', text: replyText }]);
+        saveChatLog(prev => [...prev, { sender: 'ai', text: replyText }]);
       } catch (gemErr) {
         console.error(gemErr);
-        setChatLog(prev => [...prev, { sender: 'ai', text: 'Eroare la apelarea Gemini API: ' + gemErr.message }]);
+        saveChatLog(prev => [...prev, { sender: 'ai', text: 'Eroare la apelarea Gemini API: ' + gemErr.message }]);
         setShowKeyInput(true);
       } finally {
         setChatLoading(false);
@@ -273,7 +312,7 @@ Răspunde concis și practic în limba română.`;
     } else {
       setChatLoading(false);
       setShowKeyInput(true);
-      setChatLog(prev => [...prev, { sender: 'ai', text: 'Te rugăm să introduci cheia ta gratuită de Gemini API în panoul de mai sus.' }]);
+      saveChatLog(prev => [...prev, { sender: 'ai', text: 'Te rugăm să introduci cheia ta gratuită de Gemini API în panoul de mai sus.' }]);
     }
   };
 

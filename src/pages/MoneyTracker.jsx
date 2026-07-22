@@ -281,6 +281,7 @@ export default function MoneyTracker() {
           <AiAdvisorTab 
             entries={entries}
             accessKeyHash={CORRECT_HASH}
+            currentMonth={currentMonth}
           />
         )}
       </div>
