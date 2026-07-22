@@ -54,22 +54,38 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
   };
 
   const callGeminiDirectly = async (apiKey, promptText) => {
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-    const response = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: promptText }] }]
-      })
-    });
+    const modelsToTry = [
+      'gemini-2.5-flash',
+      'gemini-2.0-flash',
+      'gemini-1.5-flash-latest',
+      'gemini-1.5-flash'
+    ];
 
-    if (!response.ok) {
-      const errData = await response.json().catch(() => ({}));
-      throw new Error(errData.error?.message || `Eroare API (${response.status})`);
+    let lastError = null;
+    for (const model of modelsToTry) {
+      try {
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        const response = await fetch(geminiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: promptText }] }]
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          return data.candidates?.[0]?.content?.parts?.[0]?.text || 'Nu s-a putut genera un răspuns.';
+        }
+
+        const errData = await response.json().catch(() => ({}));
+        lastError = errData.error?.message || `Eroare API (${response.status})`;
+      } catch (err) {
+        lastError = err.message;
+      }
     }
 
-    const data = await response.json();
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || 'Nu s-a putut genera un răspuns.';
+    throw new Error(lastError || 'Nu s-a putut apela modelul Gemini.');
   };
 
   const buildGeneralPrompt = () => {

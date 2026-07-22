@@ -106,36 +106,39 @@ Te rog să răspunzi la această întrebare ținând cont de bugetul și eșalon
 
     // ── Call Gemini API if key exists ──
     if (GEMINI_API_KEY) {
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-      
-      const payload = {
-        contents: [
-          {
-            parts: [{ text: `${systemInstruction}\n\n${prompt}` }]
-          }
-        ]
-      };
+      const modelsToTry = [
+        'gemini-2.5-flash',
+        'gemini-2.0-flash',
+        'gemini-1.5-flash-latest',
+        'gemini-1.5-flash'
+      ];
 
-      const apiResponse = await fetch(geminiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      let lastErrorText = '';
+      for (const model of modelsToTry) {
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
+        const payload = {
+          contents: [{ parts: [{ text: `${systemInstruction}\n\n${prompt}` }] }]
+        };
 
-      if (!apiResponse.ok) {
-        const errorText = await apiResponse.text();
-        console.error('Gemini API error Response:', errorText);
-        throw new Error(`Gemini API error: ${apiResponse.statusText}`);
+        const apiResponse = await fetch(geminiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (apiResponse.ok) {
+          const responseData = await apiResponse.json();
+          const text = responseData.candidates?.[0]?.content?.parts?.[0]?.text || 'Nu s-a putut genera un răspuns.';
+          const result = action === 'general_advice' ? { advice: text } : { reply: text };
+          return new Response(JSON.stringify(result), {
+            status: 200,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        lastErrorText = await apiResponse.text();
       }
 
-      const responseData = await apiResponse.json();
-      const text = responseData.candidates?.[0]?.content?.parts?.[0]?.text || 'Nu s-a putut genera un răspuns.';
-
-      const result = action === 'general_advice' ? { advice: text } : { reply: text };
-      return new Response(JSON.stringify(result), {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      throw new Error(`Gemini API error: ${lastErrorText}`);
     } 
     
     // ── Call Anthropic Claude API as fallback ──
