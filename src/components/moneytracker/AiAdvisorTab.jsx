@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Send, BrainCircuit, RefreshCw, AlertCircle, HelpCircle } from 'lucide-react';
+import { Sparkles, Send, BrainCircuit, RefreshCw, AlertCircle, HelpCircle, Key, ExternalLink } from 'lucide-react';
 
 export default function AiAdvisorTab({ entries, accessKeyHash }) {
   const [advice, setAdvice] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  
+  const [geminiKey, setGeminiKey] = useState(() => localStorage.getItem('moneytracker_gemini_key') || '');
+  const [showKeyInput, setShowKeyInput] = useState(false);
+  const [keyInputValue, setKeyInputValue] = useState('');
+
   // Custom chat states
   const [customQuestion, setCustomQuestion] = useState('');
   const [chatLog, setChatLog] = useState([]);
@@ -41,6 +44,90 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
     .filter(e => e.is_recurring)
     .reduce((acc, curr) => acc + Number(curr.amount), 0);
 
+  const saveGeminiKey = (key) => {
+    const trimmed = key.trim();
+    if (!trimmed) return;
+    localStorage.setItem('moneytracker_gemini_key', trimmed);
+    setGeminiKey(trimmed);
+    setShowKeyInput(false);
+    setError(null);
+  };
+
+  const callGeminiDirectly = async (apiKey, promptText) => {
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const response = await fetch(geminiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: promptText }] }]
+      })
+    });
+
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData.error?.message || `Eroare API (${response.status})`);
+    }
+
+    const data = await response.json();
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || 'Nu s-a putut genera un răspuns.';
+  };
+
+  const buildGeneralPrompt = () => {
+    const categoriesStr = Object.entries(expensesByCategory || {})
+      .map(([cat, amt]) => `- ${cat}: ${amt} RON`)
+      .join('\n');
+
+    const scheduleStr = (scheduleDetails || [])
+      .map(item => `- Ziua ${item.due_day}: ${item.type === 'income' ? 'Venit' : 'Cheltuială'} ${item.category} (${item.amount} RON)${item.is_recurring ? ' [Recurent]' : ''}${item.description ? ' - ' + item.description : ''}`)
+      .join('\n');
+
+    return `Ești Advisor AI, un consilier financiar personal și antrenor de buget inteligent.
+Vorbești în limba română, într-un mod prietenos, profesionist, foarte direct și motivant.
+Misiunea ta este să ajuți utilizatorul să obțină claritate, economii eficiente și predictibilitate pe baza datelor furnizate.
+
+DATELE MELE FINANCIARE CURENTE:
+- Venit lunar total: ${totalIncome} RON
+- Cheltuieli lunare totale: ${totalExpense} RON
+- Bani rămași (Economii): ${remaining} RON
+- Rata de economisire: ${savingsRate}% din venituri
+- Cheltuieli recurente fixe: ${recurringExpenses} RON
+- Defalcare cheltuieli pe categorii:
+${categoriesStr || 'Nicio cheltuială adăugată.'}
+
+CALENDAR TRANZACȚII & DATE ZILNICE (DUE DAYS):
+${scheduleStr || 'Fără date de calendar.'}
+
+TE ROG SĂ GENEREZI URMĂTOARELE SECȚIUNI (folosește obligatoriu sub-titluri începând cu '### '):
+1. ### Diagnostic Bugetar & Analiză Cash-Flow (Evoluție în Lună): Analizează rata de economisire și modul în care sunt eșalonate veniturile și cheltuielile pe parcursul zilelor lunii.
+2. ### Fondul de Urgență: Calculează ținta optimă pentru fondul de urgență (3 și 6 luni de cheltuieli recurente fixe). Explică în câte luni aș putea strânge acest fond folosind banii rămași acum.
+3. ### Strategie de Economisire și Investiții: Oferă recomandări concrete pe baza profilului de risc pentru banii rămași (${remaining} RON): Conservator (~6%), Moderat (~9%), Dinamic (~15%).
+4. ### Plan de Acțiune rapid: Oferă 3 sfaturi rapide și acționabile imediat pentru luna aceasta.`;
+  };
+
+  const buildQuestionPrompt = (qStr) => {
+    const categoriesStr = Object.entries(expensesByCategory || {})
+      .map(([cat, amt]) => `- ${cat}: ${amt} RON`)
+      .join('\n');
+
+    const scheduleStr = (scheduleDetails || [])
+      .map(item => `- Ziua ${item.due_day}: ${item.type === 'income' ? 'Venit' : 'Cheltuială'} ${item.category} (${item.amount} RON)`)
+      .join('\n');
+
+    const historyStr = (chatLog || [])
+      .map(msg => `${msg.sender === 'user' ? 'Utilizator' : 'Advisor AI'}: ${msg.text}`)
+      .join('\n');
+
+    return `Ești Advisor AI, un consilier financiar personal în limba română.
+Bugetul meu: Venit ${totalIncome} RON, Cheltuieli ${totalExpense} RON, Rămân lunar ${remaining} RON.
+Calendar tranzacții:
+${scheduleStr}
+Istoric scurt:
+${historyStr}
+
+Întrebarea utilizatorului: "${qStr}"
+Răspunde concis și practic în limba română.`;
+  };
+
   const fetchAdvice = async () => {
     if (totalIncome === 0 && totalExpense === 0) {
       setError("Te rog să adaugi câteva venituri sau cheltuieli în tab-ul 'Tracker' mai întâi pentru ca AI-ul să aibă date de analizat.");
@@ -49,6 +136,8 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
 
     setLoading(true);
     setError(null);
+
+    // 1. Try Supabase Edge Function first
     try {
       const endpoint = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-advisor`;
       const response = await fetch(endpoint, {
@@ -70,17 +159,34 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
         })
       });
 
-      if (!response.ok) {
-        throw new Error('Nu am putut contacta consilierul AI. Asigură-te că cheia API este configurată în Supabase.');
+      if (response.ok) {
+        const data = await response.json();
+        setAdvice(data.advice);
+        setLoading(false);
+        return;
       }
+    } catch (edgeErr) {
+      console.log('Supabase Edge Function unreachable, attempting direct fallback...', edgeErr);
+    }
 
-      const data = await response.json();
-      setAdvice(data.advice);
-    } catch (err) {
-      console.error(err);
-      setError(err.message || 'A apărut o eroare la generarea sfaturilor.');
-    } finally {
+    // 2. Fallback to Direct Gemini API call if key exists
+    const activeKey = geminiKey || import.meta.env.VITE_GEMINI_API_KEY;
+    if (activeKey) {
+      try {
+        const prompt = buildGeneralPrompt();
+        const text = await callGeminiDirectly(activeKey, prompt);
+        setAdvice(text);
+      } catch (gemErr) {
+        console.error(gemErr);
+        setError(gemErr.message || 'Eroare la apelarea Gemini API.');
+        setShowKeyInput(true);
+      } finally {
+        setLoading(false);
+      }
+    } else {
       setLoading(false);
+      setShowKeyInput(true);
+      setError("Funcția din Supabase nu este încă publicată. Te rugăm să introduci cheia ta gratuită Google Gemini API mai jos pentru activare instantă.");
     }
   };
 
@@ -100,6 +206,7 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
     setChatLog(prev => [...prev, { sender: 'user', text: userMsg }]);
     setChatLoading(true);
 
+    // 1. Try Supabase Edge Function first
     try {
       const endpoint = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-advisor`;
       const response = await fetch(endpoint, {
@@ -118,21 +225,38 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
             expensesByCategory,
             scheduleDetails
           },
-          chatHistory: chatLog.slice(-4) // Send last 4 messages for local context
+          chatHistory: chatLog.slice(-4)
         })
       });
 
-      if (!response.ok) {
-        throw new Error('Eroare la obținerea răspunsului de la AI.');
+      if (response.ok) {
+        const data = await response.json();
+        setChatLog(prev => [...prev, { sender: 'ai', text: data.reply }]);
+        setChatLoading(false);
+        return;
       }
+    } catch (edgeErr) {
+      console.log('Edge Function offline, trying direct Gemini call...');
+    }
 
-      const data = await response.json();
-      setChatLog(prev => [...prev, { sender: 'ai', text: data.reply }]);
-    } catch (err) {
-      console.error(err);
-      setChatLog(prev => [...prev, { sender: 'ai', text: 'Scuze, a apărut o eroare și nu am putut răspunde la întrebare: ' + err.message }]);
-    } finally {
+    // 2. Direct Gemini call fallback
+    const activeKey = geminiKey || import.meta.env.VITE_GEMINI_API_KEY;
+    if (activeKey) {
+      try {
+        const prompt = buildQuestionPrompt(userMsg);
+        const replyText = await callGeminiDirectly(activeKey, prompt);
+        setChatLog(prev => [...prev, { sender: 'ai', text: replyText }]);
+      } catch (gemErr) {
+        console.error(gemErr);
+        setChatLog(prev => [...prev, { sender: 'ai', text: 'Eroare la apelarea Gemini API: ' + gemErr.message }]);
+        setShowKeyInput(true);
+      } finally {
+        setChatLoading(false);
+      }
+    } else {
       setChatLoading(false);
+      setShowKeyInput(true);
+      setChatLog(prev => [...prev, { sender: 'ai', text: 'Te rugăm să introduci cheia ta gratuită de Gemini API în panoul de mai sus.' }]);
     }
   };
 
@@ -149,20 +273,84 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
             <p className="text-xs text-text-muted font-light">Analizează automat bugetul tău curent și oferă sfaturi personalizate.</p>
           </div>
         </div>
-        <button
-          onClick={fetchAdvice}
-          disabled={loading || entries.length === 0}
-          className="w-full sm:w-auto flex items-center justify-center gap-2 bg-neutral-900 border border-neutral-800 hover:border-accent text-accent hover:text-background hover:bg-accent font-bold text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all disabled:opacity-40 disabled:pointer-events-none"
-        >
-          <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-          <span>{advice ? 'Actualizează Analiză' : 'Generează Analiză'}</span>
-        </button>
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <button
+            onClick={() => setShowKeyInput(!showKeyInput)}
+            className="p-2.5 bg-neutral-900 border border-neutral-800 hover:border-accent text-text-muted hover:text-accent rounded-xl transition-colors"
+            title="Configurare Cheie API Gemini"
+          >
+            <Key className="w-4 h-4" />
+          </button>
+          <button
+            onClick={fetchAdvice}
+            disabled={loading || entries.length === 0}
+            className="flex-grow sm:flex-grow-0 flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-background font-bold text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all disabled:opacity-40 disabled:pointer-events-none"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+            <span>{advice ? 'Actualizează Analiză' : 'Generează Analiză'}</span>
+          </button>
+        </div>
       </div>
 
-      {error && (
-        <div className="bg-rose-500/10 border border-rose-500/20 p-4 rounded-2xl text-rose-400 flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 mt-0.5 shrink-0" />
-          <p className="text-sm font-light">{error}</p>
+      {/* Gemini Key Config Banner if needed */}
+      {(showKeyInput || (!geminiKey && error)) && (
+        <div className="bg-background-secondary border border-accent/40 p-5 rounded-2xl backdrop-blur-md space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-wider">
+              <Key className="w-4 h-4" />
+              <span>Configurare Cheie API Google Gemini (Gratuită)</span>
+            </div>
+            <a
+              href="https://aistudio.google.com/app/apikey"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[10px] text-accent hover:underline flex items-center gap-1 font-bold uppercase tracking-wider"
+            >
+              <span>Obține cheie gratis de pe Google AI Studio</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+
+          <p className="text-xs text-text-muted font-light">
+            Introduceți cheia ta gratuită de la Google Gemini pentru ca sfaturile financiare să funcționeze direct din browser pe orice dispozitiv.
+          </p>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              saveGeminiKey(keyInputValue);
+            }}
+            className="flex gap-2"
+          >
+            <input
+              type="password"
+              value={keyInputValue}
+              onChange={(e) => setKeyInputValue(e.target.value)}
+              placeholder="Lipește cheia AIzaSy..."
+              className="flex-grow bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-accent"
+            />
+            <button
+              type="submit"
+              className="bg-accent hover:bg-accent-hover text-background font-bold text-xs uppercase tracking-wider px-4 py-2 rounded-xl transition-colors shrink-0"
+            >
+              Salvează
+            </button>
+          </form>
+        </div>
+      )}
+
+      {error && !showKeyInput && (
+        <div className="bg-rose-500/10 border border-rose-500/20 p-4 rounded-2xl text-rose-400 flex items-start justify-between gap-3">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 mt-0.5 shrink-0" />
+            <p className="text-sm font-light">{error}</p>
+          </div>
+          <button
+            onClick={() => setShowKeyInput(true)}
+            className="text-xs underline font-bold uppercase tracking-wider shrink-0"
+          >
+            Setează Cheia Gemini
+          </button>
         </div>
       )}
 
@@ -188,7 +376,6 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
               {/* Render MarkDown/Text nicely formatted */}
               <div className="prose prose-invert max-w-none text-sm text-text-muted leading-relaxed font-light space-y-4">
                 {advice.split('\n\n').map((paragraph, idx) => {
-                  // Basic formatting for headers and lists
                   if (paragraph.startsWith('###')) {
                     return (
                       <h4 key={idx} className="text-text font-bold text-sm uppercase tracking-wide mt-4 text-emerald-400">
