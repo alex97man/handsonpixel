@@ -6,8 +6,9 @@ import Servicii from './pages/Servicii';
 import Portofoliu from './pages/Portofoliu';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
-import NotFound from './pages/NotFound';
 import AITest from './pages/AITest';
+import NotFound from './pages/NotFound';
+import MoneyTracker from './pages/MoneyTracker';
 
 import SoulyRo from './pages/portofoliu/SoulyRo';
 import BeerstationRo from './pages/portofoliu/BeerstationRo';
@@ -67,6 +68,7 @@ function App() {
 
           <Route path="contact" element={<Contact />} />
           <Route path="studio-test" element={<AITest />} />
+          <Route path="moneytracker" element={<MoneyTracker />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
