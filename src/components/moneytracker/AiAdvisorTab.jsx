@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Send, BrainCircuit, RefreshCw, AlertCircle, HelpCircle, Key, ExternalLink } from 'lucide-react';
+import { Sparkles, Send, BrainCircuit, RefreshCw, AlertCircle, HelpCircle, Key, ExternalLink, Trash2 } from 'lucide-react';
+import { supabase } from '../../lib/supabase';
 
 export default function AiAdvisorTab({ entries, accessKeyHash, currentMonth }) {
   const adviceStorageKey = `moneytracker_ai_advice_${currentMonth || 'default'}`;
-  const chatStorageKey = `moneytracker_ai_chat_${currentMonth || 'default'}`;
+  const chatStorageKey = `moneytracker_ai_chat_history_v2`;
 
   const [advice, setAdvice] = useState(() => localStorage.getItem(adviceStorageKey) || null);
   const [loading, setLoading] = useState(false);
@@ -24,16 +25,32 @@ export default function AiAdvisorTab({ entries, accessKeyHash, currentMonth }) {
   });
   const [chatLoading, setChatLoading] = useState(false);
 
-  // Sync state when currentMonth changes
+  // Load chat history from Supabase on mount
+  useEffect(() => {
+    const loadChatFromSupabase = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('money_tracker_chat')
+          .select('*')
+          .eq('access_key_hash', accessKeyHash)
+          .order('created_at', { ascending: true });
+
+        if (!error && data && data.length > 0) {
+          const formatted = data.map(d => ({ sender: d.sender, text: d.text }));
+          saveChatLog(formatted);
+        }
+      } catch (err) {
+        console.log('Supabase chat load fallback to local storage:', err);
+      }
+    };
+
+    loadChatFromSupabase();
+  }, [accessKeyHash]);
+
+  // Sync advice state when currentMonth changes
   useEffect(() => {
     const savedAdvice = localStorage.getItem(adviceStorageKey);
     setAdvice(savedAdvice || null);
-    try {
-      const savedChat = localStorage.getItem(chatStorageKey);
-      setChatLog(savedChat ? JSON.parse(savedChat) : []);
-    } catch {
-      setChatLog([]);
-    }
   }, [currentMonth]);
 
   const saveAdvice = (newAdvice) => {
@@ -51,6 +68,30 @@ export default function AiAdvisorTab({ entries, accessKeyHash, currentMonth }) {
       localStorage.setItem(chatStorageKey, JSON.stringify(next));
       return next;
     });
+  };
+
+  const persistMessageToSupabase = async (sender, text) => {
+    try {
+      await supabase.from('money_tracker_chat').insert([{
+        access_key_hash: accessKeyHash,
+        sender,
+        text,
+        month_year: currentMonth || 'default'
+      }]);
+    } catch (e) {
+      console.log('Could not save chat to Supabase:', e);
+    }
+  };
+
+  const handleClearChat = async () => {
+    if (window.confirm('Ești sigur că vrei să ștergi istoricul conversației cu Advisor AI?')) {
+      saveChatLog([]);
+      try {
+        await supabase.from('money_tracker_chat').delete().eq('access_key_hash', accessKeyHash);
+      } catch (e) {
+        console.log('Could not delete chat from Supabase:', e);
+      }
+    }
   };
 
   // Calculate snapshot data from entries
@@ -260,6 +301,7 @@ Răspunde concis și practic în limba română.`;
     const userMsg = customQuestion.trim();
     setCustomQuestion('');
     saveChatLog(prev => [...prev, { sender: 'user', text: userMsg }]);
+    persistMessageToSupabase('user', userMsg);
     setChatLoading(true);
 
     // 1. Try Supabase Edge Function first
@@ -288,6 +330,7 @@ Răspunde concis și practic în limba română.`;
       if (response.ok) {
         const data = await response.json();
         saveChatLog(prev => [...prev, { sender: 'ai', text: data.reply }]);
+        persistMessageToSupabase('ai', data.reply);
         setChatLoading(false);
         return;
       }
@@ -302,6 +345,7 @@ Răspunde concis și practic în limba română.`;
         const prompt = buildQuestionPrompt(userMsg);
         const replyText = await callGeminiDirectly(activeKey, prompt);
         saveChatLog(prev => [...prev, { sender: 'ai', text: replyText }]);
+        persistMessageToSupabase('ai', replyText);
       } catch (gemErr) {
         console.error(gemErr);
         saveChatLog(prev => [...prev, { sender: 'ai', text: 'Eroare la apelarea Gemini API: ' + gemErr.message }]);
@@ -471,10 +515,23 @@ Răspunde concis și practic în limba română.`;
 
         {/* Right Side: Q&A Financial Coach Chat */}
         <div className="lg:col-span-5 bg-background-secondary border border-neutral-800/40 p-5 rounded-2xl backdrop-blur-md flex flex-col min-h-[400px]">
-          <h3 className="text-md font-bold uppercase tracking-wider text-accent border-b border-neutral-800 pb-2 mb-4 flex items-center gap-2">
-            <HelpCircle className="w-4 h-4 text-accent" />
-            Adresează o Întrebare
-          </h3>
+          <div className="flex items-center justify-between border-b border-neutral-800 pb-2 mb-4">
+            <h3 className="text-md font-bold uppercase tracking-wider text-accent flex items-center gap-2">
+              <HelpCircle className="w-4 h-4 text-accent" />
+              Adresează o Întrebare
+            </h3>
+            {chatLog.length > 0 && (
+              <button
+                type="button"
+                onClick={handleClearChat}
+                className="text-[10px] text-rose-400 hover:text-rose-300 font-bold uppercase tracking-wider flex items-center gap-1 bg-rose-500/10 border border-rose-500/20 px-2.5 py-1 rounded-lg transition-colors"
+                title="Șterge istoricul conversației"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>Șterge Istoric</span>
+              </button>
+            )}
+          </div>
 
           {/* Chat area */}
           <div className="flex-grow bg-neutral-950/40 border border-neutral-900 rounded-xl p-3 mb-3 overflow-y-auto max-h-[300px] flex flex-col space-y-3 min-h-[220px]">
