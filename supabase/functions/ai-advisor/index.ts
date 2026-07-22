@@ -107,10 +107,11 @@ Te rog să răspunzi la această întrebare ținând cont de bugetul și eșalon
     // ── Call Gemini API if key exists ──
     if (GEMINI_API_KEY) {
       const modelsToTry = [
+        'gemini-3.6-flash',
+        'gemini-flash-latest',
+        'gemini-3.5-flash',
         'gemini-2.5-flash',
-        'gemini-2.0-flash',
-        'gemini-1.5-flash-latest',
-        'gemini-1.5-flash'
+        'gemini-2.0-flash'
       ];
 
       let lastErrorText = '';
