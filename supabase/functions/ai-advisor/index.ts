@@ -48,45 +48,52 @@ serve(async (req) => {
       .map(([cat, amt]) => `- ${cat}: ${amt} RON`)
       .join('\n');
 
+    const scheduleStr = (snapshot.scheduleDetails || [])
+      .map((item: any) => `- Ziua ${item.due_day}: ${item.type === 'income' ? 'Venit' : 'Cheltuială'} ${item.category} (${item.amount} RON)${item.is_recurring ? ' [Recurent]' : ''}${item.description ? ' - ' + item.description : ''}`)
+      .join('\n');
+
     const systemInstruction = 
       `Ești Advisor AI, un consilier financiar personal și antrenor de buget inteligent.
 Vorbești în limba română, într-un mod prietenos, profesionist, foarte direct și motivant.
-Misiunea ta este să ajuți utilizatorul să obțină claritate, economii eficiente și predictibilitate pe baza datelor furnizate.
+Misiunea ta este să ajuți utilizatorul să obțină claritate, economii eficiente și predictibilitate pe baza datelor furnizate (inclusiv calendarul cu zilele din lună pentru fiecare venit/cheltuială recurentă).
 Folosește întotdeauna moneda RON. Organizează răspunsurile clar, folosind formatarea Markdown (folosește obligatoriu sub-titluri începând cu '### ' pentru secțiuni și liste cu bulinuțe '-' sau '*').`;
 
     let prompt = '';
 
     if (action === 'general_advice') {
       prompt = 
-`Analizează situația mea financiară curentă din această lună și oferă-mi un ghid de acțiune.
+`Analizează situația mea financiară curentă din această lună și calendarul de flux de numerar (Cash Flow) pentru a-mi oferi un ghid de acțiune.
 
 DATELE MELE FINANCIARE CURENTE:
 - Venit lunar total: ${snapshot.totalIncome} RON
 - Cheltuieli lunare totale: ${snapshot.totalExpense} RON
 - Bani rămași (Economii): ${snapshot.remaining} RON
 - Rata de economisire: ${snapshot.savingsRate}% din venituri
-- Cheltuieli recurente fixe (chirie, utilități, rate, abonamente): ${snapshot.recurringExpenses} RON
+- Cheltuieli recurente fixe: ${snapshot.recurringExpenses} RON
 - Defalcare cheltuieli pe categorii:
 ${categoriesStr || 'Nicio cheltuială adăugată.'}
 
-TE ROG SĂ GENEREZI URMATOARELE SECȚIUNI:
-1. ### Diagnostic Bugetar: Analizează rata de economisire (este bună? cum se compară cu regula 50/30/20?) și distribuția cheltuielilor. Identifică potențiale categorii unde se cheltuiește prea mult.
-2. ### Fondul de Urgență: Calculează o țintă optimă pentru fondul de urgență (3 și 6 luni de cheltuieli recurente fixe, adică 3 * ${snapshot.recurringExpenses} RON și 6 * ${snapshot.recurringExpenses} RON). Explică în câte luni aș putea strânge acest fond folosind banii rămași acum.
+CALENDAR TRANZACȚII & DATE ZILNICE (DUE DAYS):
+${scheduleStr || 'Fără date de calendar.'}
+
+TE ROG SĂ GENEREZI URMĂTOARELE SECȚIUNI:
+1. ### Diagnostic Bugetar & Analiză Cash-Flow (Evoluție în Lună): Analizează rata de economisire și modul în care sunt eșalonate veniturile și cheltuielile pe parcursul zilelor lunii (ex: dacă există riscul de a rămâne fără lichidități înainte de ziua de salariu).
+2. ### Fondul de Urgență: Calculează ținta optimă pentru fondul de urgență (3 și 6 luni de cheltuieli recurente fixe). Explică în câte luni aș putea strânge acest fond folosind banii rămași acum.
 3. ### Strategie de Economisire și Investiții: Oferă recomandări concrete pe baza profilului de risc pentru banii rămași (${snapshot.remaining} RON):
-   - Conservator (ex: depozite la ~6% - ce sumă s-ar strânge)
+   - Conservator (ex: depozite / titluri de stat la ~6%)
    - Moderat (ex: ETF diversificat la ~9%)
    - Dinamic (ex: acțiuni/crypto la ~15%)
-4. ### Plan de Acțiune rapid: Oferă 3 sfaturi rapide și acționabile imediat pentru luna aceasta.`;
+4. ### Plan de Acțiune rapid: Oferă 3 sfaturi rapide și acționabile imediat pentru optimizarea plăților și a economiilor luna aceasta.`;
     } else if (action === 'ask_question') {
       const historyStr = (chatHistory || [])
         .map((msg: any) => `${msg.sender === 'user' ? 'Utilizator' : 'Advisor AI'}: ${msg.text}`)
         .join('\n');
 
       prompt = 
-`Iată datele mele financiare de bază pentru context:
-- Venit: ${snapshot.totalIncome} RON, Cheltuieli: ${snapshot.totalExpense} RON, Rămân lunar: ${snapshot.remaining} RON, Cheltuieli Recurente: ${snapshot.recurringExpenses} RON.
-Cheltuieli pe categorii:
-${categoriesStr || 'Fără'}
+`Iată datele mele financiare de bază și calendarul tranzacțiilor:
+- Venit: ${snapshot.totalIncome} RON, Cheltuieli: ${snapshot.totalExpense} RON, Rămân lunar: ${snapshot.remaining} RON.
+Calendarul tranzacțiilor pe zile din lună:
+${scheduleStr || 'Fără'}
 
 Istoricul scurt al conversației:
 ${historyStr}
@@ -94,7 +101,7 @@ ${historyStr}
 Întrebarea mea:
 "${question}"
 
-Te rog să răspunzi la această întrebare ținând cont de bugetul meu de mai sus. Fii concis, practic și folosește titluri începând cu '### ' dacă structurezi răspunsul în secțiuni.`;
+Te rog să răspunzi la această întrebare ținând cont de bugetul și eșalonarea plăților mele de mai sus. Fii concis, practic și folosește titluri începând cu '### ' dacă structurezi răspunsul în secțiuni.`;
     }
 
     // ── Call Gemini API if key exists ──

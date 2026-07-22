@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Trash2, ArrowUpRight, ArrowDownRight, Calendar, Info, RefreshCw } from 'lucide-react';
+import { Plus, Trash2, ArrowUpRight, ArrowDownRight, Calendar, Info, RefreshCw, Clock } from 'lucide-react';
 
 const CATEGORIES = {
   income: ['Salariu', 'Investiții', 'Freelance', 'Cadouri', 'Altele'],
@@ -11,6 +11,7 @@ export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, current
   const [type, setType] = useState('expense');
   const [category, setCategory] = useState(CATEGORIES.expense[0]);
   const [isRecurring, setIsRecurring] = useState(false);
+  const [dueDay, setDueDay] = useState(new Date().getDate());
   const [description, setDescription] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -30,6 +31,7 @@ export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, current
         category,
         amount: parseFloat(amount),
         is_recurring: isRecurring,
+        due_day: parseInt(dueDay, 10) || 1,
         description: description.trim(),
         month_year: currentMonth
       });
@@ -73,13 +75,24 @@ export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, current
     return date.toLocaleDateString('ro-RO', { month: 'long', year: 'numeric' });
   };
 
+  // Sort entries by due_day ascending
+  const sortedEntries = [...entries].sort((a, b) => (a.due_day || 1) - (b.due_day || 1));
+
+  // Group entries by due_day for the Cash Flow Timeline
+  const timelineByDay = sortedEntries.reduce((acc, entry) => {
+    const day = entry.due_day || 1;
+    if (!acc[day]) acc[day] = [];
+    acc[day].push(entry);
+    return acc;
+  }, {});
+
   return (
     <div className="space-y-6">
       {/* Month Navigator */}
       <div className="flex items-center justify-between bg-background-secondary border border-neutral-800/40 p-3 rounded-2xl backdrop-blur-md">
         <button
           onClick={handlePrevMonth}
-          className="p-2 hover:bg-neutral-800 rounded-lg text-accent transition-colors"
+          className="p-2 hover:bg-neutral-800 rounded-lg text-accent transition-colors text-xs font-bold uppercase tracking-wider"
         >
           &larr; Înapoi
         </button>
@@ -89,7 +102,7 @@ export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, current
         </div>
         <button
           onClick={handleNextMonth}
-          className="p-2 hover:bg-neutral-800 rounded-lg text-accent transition-colors"
+          className="p-2 hover:bg-neutral-800 rounded-lg text-accent transition-colors text-xs font-bold uppercase tracking-wider"
         >
           Înainte &rarr;
         </button>
@@ -136,6 +149,7 @@ export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, current
         </div>
       </div>
 
+      {/* Main Grid: Form + Ledger */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Form - Add Entry */}
         <div className="lg:col-span-5 bg-background-secondary border border-neutral-800/40 p-5 rounded-2xl backdrop-blur-md space-y-4">
@@ -166,18 +180,34 @@ export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, current
               </button>
             </div>
 
-            {/* Amount */}
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-text-muted mb-1">Sumă (RON)</label>
-              <input
-                type="number"
-                step="0.01"
-                required
-                value={amount}
-                onChange={e => setAmount(e.target.value)}
-                placeholder="0.00"
-                className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-text font-sans focus:outline-none focus:border-accent transition-colors text-lg"
-              />
+            {/* Amount & Due Day in 2 Columns */}
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-text-muted mb-1">Sumă (RON)</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  required
+                  value={amount}
+                  onChange={e => setAmount(e.target.value)}
+                  placeholder="0.00"
+                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-text font-sans focus:outline-none focus:border-accent transition-colors text-md font-bold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-text-muted mb-1">Ziua din lună (1-31)</label>
+                <input
+                  type="number"
+                  min="1"
+                  max="31"
+                  required
+                  value={dueDay}
+                  onChange={e => setDueDay(e.target.value)}
+                  placeholder="Ziua 1-31"
+                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-text font-sans text-center focus:outline-none focus:border-accent transition-colors text-md font-bold"
+                />
+              </div>
             </div>
 
             {/* Category */}
@@ -218,7 +248,7 @@ export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, current
                 type="text"
                 value={description}
                 onChange={e => setDescription(e.target.value)}
-                placeholder="Detalii tranzacție..."
+                placeholder="Ex: Salariu angajator, Chirie apartament..."
                 className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-text focus:outline-none focus:border-accent transition-colors"
               />
             </div>
@@ -230,34 +260,40 @@ export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, current
               className="w-full bg-accent hover:bg-accent-hover text-background font-black uppercase tracking-wider py-3 rounded-xl transition-colors flex items-center justify-center gap-2"
             >
               <Plus className="w-5 h-5" />
-              <span>{isSubmitting ? 'Se adaugă...' : 'Adaugă'}</span>
+              <span>{isSubmitting ? 'Se adaugă...' : 'Adaugă Tranzacție'}</span>
             </button>
           </form>
         </div>
 
         {/* Ledger List */}
         <div className="lg:col-span-7 bg-background-secondary border border-neutral-800/40 p-5 rounded-2xl backdrop-blur-md flex flex-col min-h-[400px]">
-          <h3 className="text-md font-bold uppercase tracking-wider text-accent border-b border-neutral-800 pb-2 mb-4">
-            Tranzacții în Curs
-          </h3>
+          <div className="flex items-center justify-between border-b border-neutral-800 pb-2 mb-4">
+            <h3 className="text-md font-bold uppercase tracking-wider text-accent">
+              Tranzacții (Ordonate după dată)
+            </h3>
+            <span className="text-xs text-text-muted font-light">{entries.length} înregistrări</span>
+          </div>
 
           {entries.length === 0 ? (
             <div className="flex-grow flex flex-col items-center justify-center text-text-muted space-y-2 py-8">
               <Info className="w-8 h-8 text-neutral-700" />
               <p className="text-sm">Nicio tranzacție înregistrată pentru această lună.</p>
-              <p className="text-xs">Introdu veniturile și cheltuielile folosind formularul.</p>
+              <p className="text-xs">Introdu veniturile și cheltuielile recurente folosind formularul.</p>
             </div>
           ) : (
             <div className="flex-grow overflow-y-auto space-y-2 max-h-[420px] pr-1">
-              {entries.map(entry => (
+              {sortedEntries.map(entry => (
                 <div 
                   key={entry.id} 
                   className="flex items-center justify-between bg-neutral-900/40 hover:bg-neutral-900/80 border border-neutral-800/20 p-3 rounded-xl transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${entry.type === 'income' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
-                      {entry.type === 'income' ? <ArrowUpRight className="w-4 h-4" /> : <ArrowDownRight className="w-4 h-4" />}
+                    {/* Day badge */}
+                    <div className="flex flex-col items-center justify-center w-10 h-10 bg-neutral-900 border border-neutral-800 rounded-xl shrink-0">
+                      <span className="text-[9px] text-text-muted uppercase font-bold">Ziua</span>
+                      <span className="text-sm font-black text-accent font-sans leading-none">{entry.due_day || 1}</span>
                     </div>
+
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="font-semibold text-text text-sm">{entry.category}</span>
@@ -290,6 +326,52 @@ export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, current
           )}
         </div>
       </div>
+
+      {/* Cash Flow Timeline Calendar */}
+      {entries.length > 0 && (
+        <div className="bg-background-secondary border border-neutral-800/40 p-5 rounded-2xl backdrop-blur-md space-y-4">
+          <div className="flex items-center gap-2 border-b border-neutral-800 pb-2">
+            <Clock className="w-5 h-5 text-accent" />
+            <h3 className="text-md font-bold uppercase tracking-wider text-text">
+              Calendar Flux de Numerar (Cash Flow Timeline)
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2">
+            {Object.entries(timelineByDay).map(([day, dayEntries]) => {
+              const dayIncome = dayEntries.filter(e => e.type === 'income').reduce((acc, c) => acc + Number(c.amount), 0);
+              const dayExpense = dayEntries.filter(e => e.type === 'expense').reduce((acc, c) => acc + Number(c.amount), 0);
+              const netDay = dayIncome - dayExpense;
+
+              return (
+                <div key={day} className="bg-neutral-900/60 border border-neutral-800/40 p-3 rounded-xl flex flex-col justify-between space-y-2">
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-xs font-bold text-accent">Ziua {day}</span>
+                    <span className="text-[9px] text-text-muted font-mono">{dayEntries.length} op.</span>
+                  </div>
+
+                  <div className="space-y-1">
+                    {dayIncome > 0 && (
+                      <div className="text-[11px] font-bold text-emerald-400 font-sans">
+                        +{dayIncome.toLocaleString('ro-RO')}
+                      </div>
+                    )}
+                    {dayExpense > 0 && (
+                      <div className="text-[11px] font-bold text-rose-400 font-sans">
+                        -{dayExpense.toLocaleString('ro-RO')}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="border-t border-neutral-850 pt-1 text-[10px] text-text-muted truncate">
+                    {dayEntries.map(e => e.category).join(', ')}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

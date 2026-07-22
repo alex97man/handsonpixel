@@ -8,6 +8,7 @@ create table if not exists public.money_tracker_entries (
   category text not null,
   amount numeric(12, 2) not null,
   is_recurring boolean default false not null,
+  due_day integer default 1 check (due_day >= 1 and due_day <= 31),
   description text,
   month_year text not null -- format: 'YYYY-MM'
 );

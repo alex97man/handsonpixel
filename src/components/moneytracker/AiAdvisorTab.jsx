@@ -26,10 +26,15 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
     return acc;
   }, {});
 
-  // Group recurring expenses
-  const recurringExpenses = expenseEntries
-    .filter(e => e.is_recurring)
-    .reduce((acc, curr) => acc + Number(curr.amount), 0);
+  // Detailed transaction schedule with due days
+  const scheduleDetails = entries.map(e => ({
+    type: e.type,
+    category: e.category,
+    amount: Number(e.amount),
+    due_day: e.due_day || 1,
+    is_recurring: e.is_recurring,
+    description: e.description || ''
+  })).sort((a, b) => a.due_day - b.due_day);
 
   const fetchAdvice = async () => {
     if (totalIncome === 0 && totalExpense === 0) {
@@ -54,13 +59,14 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
             savingsRate,
             recurringExpenses,
             expensesByCategory,
+            scheduleDetails,
             entriesCount: entries.length
           }
         })
       });
 
       if (!response.ok) {
-        throw new Error('Nu am putut contacta consilierul AI. Asigură-te că cheia API este configurată în Vercel.');
+        throw new Error('Nu am putut contacta consilierul AI. Asigură-te că cheia API este configurată în Supabase.');
       }
 
       const data = await response.json();
@@ -104,7 +110,8 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
             remaining,
             savingsRate,
             recurringExpenses,
-            expensesByCategory
+            expensesByCategory,
+            scheduleDetails
           },
           chatHistory: chatLog.slice(-4) // Send last 4 messages for local context
         })
