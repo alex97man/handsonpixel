@@ -339,7 +339,7 @@ Răspunde concis și practic în limba română.`;
             className="flex gap-2"
           >
             <input
-              type="password"
+              type="text"
               value={keyInputValue}
               onChange={(e) => setKeyInputValue(e.target.value)}
               placeholder="Lipește cheia AIzaSy..."
