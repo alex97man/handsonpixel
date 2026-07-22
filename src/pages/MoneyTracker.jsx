@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import TrackerTab from '../components/moneytracker/TrackerTab';
+import RecurringTab from '../components/moneytracker/RecurringTab';
 import ForecastTab from '../components/moneytracker/ForecastTab';
 import AiAdvisorTab from '../components/moneytracker/AiAdvisorTab';
-import { Sparkles, BrainCircuit, Wallet, CalendarRange, LogOut, KeyRound } from 'lucide-react';
+import { Sparkles, BrainCircuit, Wallet, CalendarRange, LogOut, KeyRound, Repeat } from 'lucide-react';
 
 const CORRECT_HASH = '92fd12a8f05c016c3c53fbb646ed580e595f0177df9d21a26d469360b3667f22'; // SHA-256 for "Temporar.123"
 
@@ -214,10 +215,10 @@ export default function MoneyTracker() {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex border-b border-neutral-800/20">
+      <div className="flex border-b border-neutral-800/20 overflow-x-auto">
         <button
           onClick={() => setActiveTab('tracker')}
-          className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 py-3 px-6 text-xs font-black uppercase tracking-wider border-b-2 transition-all ${
+          className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 py-3 px-5 text-xs font-black uppercase tracking-wider border-b-2 transition-all whitespace-nowrap ${
             activeTab === 'tracker' 
               ? 'border-accent text-accent' 
               : 'border-transparent text-text-muted hover:text-text'
@@ -227,8 +228,19 @@ export default function MoneyTracker() {
           <span>Tracker</span>
         </button>
         <button
+          onClick={() => setActiveTab('recurring')}
+          className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 py-3 px-5 text-xs font-black uppercase tracking-wider border-b-2 transition-all whitespace-nowrap ${
+            activeTab === 'recurring' 
+              ? 'border-accent text-accent' 
+              : 'border-transparent text-text-muted hover:text-text'
+          }`}
+        >
+          <Repeat className="w-4 h-4" />
+          <span>Recurențe</span>
+        </button>
+        <button
           onClick={() => setActiveTab('forecast')}
-          className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 py-3 px-6 text-xs font-black uppercase tracking-wider border-b-2 transition-all ${
+          className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 py-3 px-5 text-xs font-black uppercase tracking-wider border-b-2 transition-all whitespace-nowrap ${
             activeTab === 'forecast' 
               ? 'border-accent text-accent' 
               : 'border-transparent text-text-muted hover:text-text'
@@ -239,7 +251,7 @@ export default function MoneyTracker() {
         </button>
         <button
           onClick={() => setActiveTab('ai')}
-          className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 py-3 px-6 text-xs font-black uppercase tracking-wider border-b-2 transition-all ${
+          className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 py-3 px-5 text-xs font-black uppercase tracking-wider border-b-2 transition-all whitespace-nowrap ${
             activeTab === 'ai' 
               ? 'border-accent text-accent' 
               : 'border-transparent text-text-muted hover:text-text'
@@ -268,6 +280,15 @@ export default function MoneyTracker() {
             onDeleteEntry={handleDeleteEntry}
             currentMonth={currentMonth}
             setCurrentMonth={setCurrentMonth}
+          />
+        )}
+
+        {activeTab === 'recurring' && (
+          <RecurringTab
+            entries={entries}
+            onAddEntry={handleAddEntry}
+            onDeleteEntry={handleDeleteEntry}
+            currentMonth={currentMonth}
           />
         )}
 
