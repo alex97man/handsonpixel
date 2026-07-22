@@ -40,7 +40,8 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/ai-advisor', {
+      const endpoint = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-advisor`;
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -89,7 +90,8 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
     setChatLoading(true);
 
     try {
-      const response = await fetch('/api/ai-advisor', {
+      const endpoint = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-advisor`;
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
