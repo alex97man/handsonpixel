@@ -36,6 +36,11 @@ export default function AiAdvisorTab({ entries, accessKeyHash }) {
     description: e.description || ''
   })).sort((a, b) => a.due_day - b.due_day);
 
+  // Group recurring expenses
+  const recurringExpenses = expenseEntries
+    .filter(e => e.is_recurring)
+    .reduce((acc, curr) => acc + Number(curr.amount), 0);
+
   const fetchAdvice = async () => {
     if (totalIncome === 0 && totalExpense === 0) {
       setError("Te rog să adaugi câteva venituri sau cheltuieli în tab-ul 'Tracker' mai întâi pentru ca AI-ul să aibă date de analizat.");
