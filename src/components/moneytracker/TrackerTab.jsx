@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Plus, Trash2, ArrowUpRight, ArrowDownRight, Calendar, Info, RefreshCw, Clock } from 'lucide-react';
+import { Plus, Trash2, ArrowUpRight, ArrowDownRight, Calendar, Info, RefreshCw, Clock, Edit2 } from 'lucide-react';
 
 const CATEGORIES = {
   income: ['Salariu', 'Investiții', 'Freelance', 'Cadouri', 'Altele'],
   expense: ['Chirie/Rată', 'Utilități', 'Mâncare', 'Transport', 'Sănătate', 'Educație', 'Divertisment', 'Cumpărături', 'Abonamente', 'Altele']
 };
 
-export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, currentMonth, setCurrentMonth }) {
+export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, onUpdateEntry, currentMonth, setCurrentMonth }) {
   const [amount, setAmount] = useState('');
   const [type, setType] = useState('expense');
   const [category, setCategory] = useState(CATEGORIES.expense[0]);
@@ -14,6 +14,48 @@ export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, current
   const [dueDay, setDueDay] = useState(new Date().getDate());
   const [description, setDescription] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Edit State
+  const [editingEntry, setEditingEntry] = useState(null);
+  const [editForm, setEditForm] = useState({
+    type: 'expense',
+    category: '',
+    amount: '',
+    is_recurring: false,
+    due_day: 1,
+    description: ''
+  });
+
+  const openEditModal = (entry) => {
+    setEditingEntry(entry);
+    setEditForm({
+      type: entry.type,
+      category: entry.category,
+      amount: String(entry.amount),
+      is_recurring: entry.is_recurring,
+      due_day: entry.due_day || 1,
+      description: entry.description || ''
+    });
+  };
+
+  const handleSaveEdit = async (e) => {
+    e.preventDefault();
+    if (!editingEntry || !editForm.amount || parseFloat(editForm.amount) <= 0) return;
+
+    try {
+      await onUpdateEntry(editingEntry.id, {
+        type: editForm.type,
+        category: editForm.category,
+        amount: parseFloat(editForm.amount),
+        is_recurring: editForm.is_recurring,
+        due_day: parseInt(editForm.due_day, 10) || 1,
+        description: editForm.description.trim()
+      });
+      setEditingEntry(null);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleTypeChange = (newType) => {
     setType(newType);
@@ -87,7 +129,133 @@ export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, current
   }, {});
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
+      {/* Edit Modal Overlay */}
+      {editingEntry && (
+        <div className="fixed inset-0 bg-background/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
+          <div className="bg-neutral-900 border border-accent/40 w-full max-w-lg p-6 rounded-3xl space-y-4 shadow-2xl animate-fadeIn">
+            <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
+              <h3 className="text-md font-bold text-accent uppercase tracking-wider flex items-center gap-2">
+                <Edit2 className="w-4 h-4" /> Editează Tranzacția
+              </h3>
+              <button
+                type="button"
+                onClick={() => setEditingEntry(null)}
+                className="text-xs text-text-muted hover:text-text font-bold"
+              >
+                ✕ Închide
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveEdit} className="space-y-4">
+              {/* Type Toggle */}
+              <div className="flex bg-neutral-950 p-1 rounded-xl border border-neutral-800">
+                <button
+                  type="button"
+                  onClick={() => setEditForm(prev => ({ ...prev, type: 'expense', category: CATEGORIES.expense[0] }))}
+                  className={`flex-1 py-2 text-xs font-bold uppercase rounded-lg transition-all ${
+                    editForm.type === 'expense' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'text-text-muted'
+                  }`}
+                >
+                  Cheltuială
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setEditForm(prev => ({ ...prev, type: 'income', category: CATEGORIES.income[0] }))}
+                  className={`flex-1 py-2 text-xs font-bold uppercase rounded-lg transition-all ${
+                    editForm.type === 'income' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'text-text-muted'
+                  }`}
+                >
+                  Venit
+                </button>
+              </div>
+
+              {/* Amount & Due Day */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold uppercase text-text-muted mb-1">Sumă (RON)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    required
+                    value={editForm.amount}
+                    onChange={e => setEditForm(prev => ({ ...prev, amount: e.target.value }))}
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-text font-bold text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase text-text-muted mb-1">Ziua (1-31)</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="31"
+                    required
+                    value={editForm.due_day}
+                    onChange={e => setEditForm(prev => ({ ...prev, due_day: e.target.value }))}
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-text font-bold text-sm text-center"
+                  />
+                </div>
+              </div>
+
+              {/* Category */}
+              <div>
+                <label className="block text-xs font-bold uppercase text-text-muted mb-1">Categorie</label>
+                <select
+                  value={editForm.category}
+                  onChange={e => setEditForm(prev => ({ ...prev, category: e.target.value }))}
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-text text-sm"
+                >
+                  {CATEGORIES[editForm.type].map(c => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Recurring */}
+              <div className="flex items-center justify-between py-2 border-y border-neutral-800">
+                <span className="text-xs font-bold uppercase text-text-muted">Repetiție lunară (Recurentă)</span>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={editForm.is_recurring}
+                    onChange={e => setEditForm(prev => ({ ...prev, is_recurring: e.target.checked }))}
+                    className="sr-only peer"
+                  />
+                  <div className="w-9 h-5 bg-neutral-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-neutral-500 after:border-neutral-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent peer-checked:after:bg-background"></div>
+                </label>
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className="block text-xs font-bold uppercase text-text-muted mb-1">Descriere (Opțional)</label>
+                <input
+                  type="text"
+                  value={editForm.description}
+                  onChange={e => setEditForm(prev => ({ ...prev, description: e.target.value }))}
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3 py-2 text-text text-sm"
+                />
+              </div>
+
+              <div className="flex justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setEditingEntry(null)}
+                  className="px-4 py-2 text-xs font-bold uppercase text-text-muted hover:text-text"
+                >
+                  Anulează
+                </button>
+                <button
+                  type="submit"
+                  className="bg-accent hover:bg-accent-hover text-background font-bold text-xs uppercase px-5 py-2.5 rounded-xl transition-all"
+                >
+                  Salvează Modificările
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* Month Navigator */}
       <div className="flex items-center justify-between bg-background-secondary border border-neutral-800/40 p-3 rounded-2xl backdrop-blur-md">
         <button
@@ -308,14 +476,21 @@ export default function TrackerTab({ entries, onAddEntry, onDeleteEntry, current
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     <span className={`font-bold font-sans text-sm ${entry.type === 'income' ? 'text-emerald-400' : 'text-text'}`}>
                       {entry.type === 'income' ? '+' : '-'}{Number(entry.amount).toLocaleString('ro-RO')} RON
                     </span>
                     <button
+                      onClick={() => openEditModal(entry)}
+                      className="text-neutral-600 hover:text-accent p-1.5 rounded-lg hover:bg-accent/10 transition-colors"
+                      title="Editează tranzacția"
+                    >
+                      <Edit2 className="w-4 h-4" />
+                    </button>
+                    <button
                       onClick={() => onDeleteEntry(entry.id)}
                       className="text-neutral-600 hover:text-rose-400 p-1.5 rounded-lg hover:bg-rose-500/10 transition-colors"
-                      title="Șterge tranzacție"
+                      title="Șterge tranzacția"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

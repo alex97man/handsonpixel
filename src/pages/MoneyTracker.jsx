@@ -132,6 +132,26 @@ export default function MoneyTracker() {
     }
   };
 
+  const handleUpdateEntry = async (id, updatedFields) => {
+    try {
+      const { data, error } = await supabase
+        .from('money_tracker_entries')
+        .update(updatedFields)
+        .eq('id', id)
+        .eq('access_key_hash', CORRECT_HASH)
+        .select();
+
+      if (error) throw error;
+
+      if (data && data.length > 0) {
+        setEntries(prev => prev.map(e => e.id === id ? data[0] : e));
+      }
+    } catch (err) {
+      console.error('Error updating entry:', err);
+      alert('Eroare la actualizarea tranzacției.');
+    }
+  };
+
   // Shared calculations for other tabs
   const totalIncome = entries.filter(e => e.type === 'income').reduce((acc, curr) => acc + Number(curr.amount), 0);
   const totalExpense = entries.filter(e => e.type === 'expense').reduce((acc, curr) => acc + Number(curr.amount), 0);
@@ -278,6 +298,7 @@ export default function MoneyTracker() {
             entries={entries}
             onAddEntry={handleAddEntry}
             onDeleteEntry={handleDeleteEntry}
+            onUpdateEntry={handleUpdateEntry}
             currentMonth={currentMonth}
             setCurrentMonth={setCurrentMonth}
           />
@@ -288,6 +309,7 @@ export default function MoneyTracker() {
             entries={entries}
             onAddEntry={handleAddEntry}
             onDeleteEntry={handleDeleteEntry}
+            onUpdateEntry={handleUpdateEntry}
             currentMonth={currentMonth}
           />
         )}
